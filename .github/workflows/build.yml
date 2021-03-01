@@ -21,6 +21,7 @@ jobs:
           npm install
       - name: generate keystore
         run: |
+          cd android/app
           printf "\n\n\n\n\n\n yes" | keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000
       - name: Build Android Release
         run: |
