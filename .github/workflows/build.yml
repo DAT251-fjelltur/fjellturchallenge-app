@@ -28,12 +28,6 @@ jobs:
         run: |
           chmod +x android/gradlew
           cd android && ./gradlew bundleRelease
-      - name: Upload AAB
-        id: uploadArtifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: app
-          path: android/app/build/outputs/bundle/release/app-release.aab
       - name: Sign AAB
         id: sign
         uses: r0adkll/sign-android-release@v1
@@ -43,6 +37,12 @@ jobs:
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
+      - name: Upload AAB
+        id: uploadArtifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: app
+          path: android/app/build/outputs/bundle/release/app-release.aab
       - name: Deploy to Play Store (BETA)
         id: deploy
         uses: r0adkll/upload-google-play@v1
