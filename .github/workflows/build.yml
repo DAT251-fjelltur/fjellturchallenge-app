@@ -19,6 +19,9 @@ jobs:
       - name: Install npm dependencies
         run: |
           npm install
+      - name: generate keystore
+        run: |
+          keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000
       - name: Build Android Release
         run: |
           chmod +x android/gradlew
