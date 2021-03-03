@@ -1,8 +1,8 @@
 name: react-native-android-build-apk
-on:
- push:
-   branches:
-     - master
+  on:
+    push:
+      branches:
+        - master
 jobs:
   - name: Checkout
     uses: actions/checkout@v2
