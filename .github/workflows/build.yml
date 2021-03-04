@@ -1,9 +1,6 @@
-name: default
-
 on:
   push:
-    branches:
-      - master
+
 jobs:
   - name: Checkout
       uses: actions/checkout@v2
