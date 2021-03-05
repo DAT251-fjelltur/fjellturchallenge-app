@@ -28,7 +28,7 @@ jobs:
 
       - name: Build Release AAB
         id: buildRelease
-        run: andoid/gradlew bundleRelease
+        run: android/gradlew bundleRelease
 
       - name: Sign AAB
         id: sign
