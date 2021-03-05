@@ -161,10 +161,10 @@ android {
                 def keystorePropertiesFile = rootProject.file('key.properties')
                 def keystoreProperties = new Properties()
                 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-                keyAlias keystoreProperties['FCI_KEY_ALIAS']
-                keyPassword keystoreProperties['FCI_KEY_PASSWORD']
-                storeFile file(keystoreProperties['CM_KEYSTORE'])
-                storePassword keystoreProperties['FCI_KEYSTORE_PASSWORD']
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
             }
         }
     }
