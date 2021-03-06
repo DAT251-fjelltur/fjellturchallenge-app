@@ -22,6 +22,7 @@ function App() {
       <View>
         <Text>Fjellturchallenge</Text>
         <Text>Hallo</Text>
+        <Text>pipeline</Text>
       </View>
   );
 };
