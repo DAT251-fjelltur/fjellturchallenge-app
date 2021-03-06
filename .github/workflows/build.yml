@@ -38,11 +38,12 @@ jobs:
       - name: Build Release AAB
         id: buildRelease
         run: cd android && ./gradlew bundleRelease
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
-          name: app-release.apk
-          path: android/app/build/outputs/apk/release/
+          name: app-release.aab
+          path: android/app/build/outputs/bundle/release/
       - name: Sign AAB
         id: sign
         uses: r0adkll/sign-android-release@v1
