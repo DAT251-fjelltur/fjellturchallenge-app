@@ -29,7 +29,7 @@ jobs:
       - name: Build with Gradle
         id: build
         run: android/gradlew build
-      #generate keystore because it is needed?
+      #generate keystore because it is needed to build
       - name: generate keystore
         run: |
           cd android/app
@@ -38,9 +38,6 @@ jobs:
       - name: Build Release AAB
         id: buildRelease
         run: cd android && ./gradlew bundleRelease
-      - name: unsign
-        run: |
-          zip -d foo.apk META-INF/\*
 
       - name: Sign AAB
         id: sign
