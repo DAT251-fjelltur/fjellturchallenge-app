@@ -44,6 +44,7 @@ jobs:
         with:
           name: app-release.aab
           path: android/app/build/outputs/bundle/release/
+
       - name: Sign AAB
         id: sign
         uses: r0adkll/sign-android-release@v1
