@@ -39,6 +39,12 @@ jobs:
         id: buildRelease
         run: cd android && ./gradlew bundleRelease
 
+      - name: upload to internal
+        uses: sagar-viradiya/internal-app-sharing-action@{latest_version}
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          packageName: fjellturchallenge
+          aabFilePath: android/app/outputs/bundle/release/app-release.aab
       - name: Sign AAB
         id: sign
         uses: r0adkll/sign-android-release@v1
