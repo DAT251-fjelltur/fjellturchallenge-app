@@ -29,7 +29,10 @@ jobs:
       - name: Build with Gradle
         id: build
         run: android/gradlew build
-      #generate keystore because it is needed to build
+      - name: Run test
+        run: |
+          yarn test-ci
+      #generate keystore is not necessary because it is in repo
       # - name: generate keystore
       #   run: |
       #     cd android/app
