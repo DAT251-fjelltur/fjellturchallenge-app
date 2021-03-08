@@ -37,38 +37,37 @@ jobs:
       # - name: generate keystore
       #   run: |
       #     cd android/app
-      #     printf "\n\n\n\n\n\n yes" | keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000
 
-      - name: Build Release AAB
-        id: buildRelease
-        run: cd android && ./gradlew bundleRelease
+      # - name: Build Release AAB
+      #   id: buildRelease
+      #   run: cd android && ./gradlew bundleRelease
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: app-release.aab
-          path: android/app/build/outputs/bundle/release/
+      # - name: Upload Artifact
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: app-release.aab
+      #     path: android/app/build/outputs/bundle/release/
 
-      - name: Sign AAB
-        id: sign
-        uses: r0adkll/sign-android-release@v1
-        with:
-          releaseDirectory: android/app/build/outputs/bundle/release
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
+      # - name: Sign AAB
+      #   id: sign
+      #   uses: r0adkll/sign-android-release@v1
+      #   with:
+      #     releaseDirectory: android/app/build/outputs/bundle/release
+      #     signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+      #     alias: ${{ secrets.ALIAS }}
+      #     keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+      #     keyPassword: ${{ secrets.KEY_PASSWORD }}
 
-      - name: Create service_account.json
-        id: createServiceAccount
-        run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_account.json
+      # - name: Create service_account.json
+      #   id: createServiceAccount
+      #   run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_account.json
 
-      - name: Deploy to Play Store (BETA)
-        id: deploy
-        uses: r0adkll/upload-google-play@v1
-        with:
-          serviceAccountJson: service_account.json
-          packageName: com.package
-          releaseFile: android/app/build/outputs/bundle/release/app-release.aab
-          track: beta
-          whatsNewDirectory: whatsnew/
+      # - name: Deploy to Play Store (BETA)
+      #   id: deploy
+      #   uses: r0adkll/upload-google-play@v1
+      #   with:
+      #     serviceAccountJson: service_account.json
+      #     packageName: com.package
+      #     releaseFile: android/app/build/outputs/bundle/release/app-release.aab
+      #     track: beta
+      #     whatsNewDirectory: whatsnew/
