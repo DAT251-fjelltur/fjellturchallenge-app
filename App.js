@@ -6,24 +6,24 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
   Text,
+  TextInput,
 } from 'react-native';
+
+import SignUp from "./components/SignUp"
 
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 
 function App() {
+
   return (
-      <View>
-        <Text>Fjellturchallenge</Text>
-        <Text>Hallo</Text>
-        <Text>pipeline</Text>
-      </View>
+      <SignUp></SignUp>
   );
 };
 
