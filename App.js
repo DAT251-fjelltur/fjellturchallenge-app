@@ -7,6 +7,8 @@
  */
 
 import React, { useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import {
   StyleSheet,
   View,
@@ -15,55 +17,24 @@ import {
 } from 'react-native';
 
 import SignUp from "./components/SignUp"
+import SignIn from "./components/SignIn"
+import HomeScreen from "./components/HomeScreen"
 
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
+
+const Stack = createStackNavigator()
 
 function App() {
 
   return (
-      <SignUp></SignUp>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Sign Up" component={SignUp} />
+        <Stack.Screen name="Sign In" component={SignIn} />
+        <Stack.Screen name="Home Screen" component={HomeScreen} />
+
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
 
 export default App;
