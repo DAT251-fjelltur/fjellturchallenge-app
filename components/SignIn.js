@@ -11,7 +11,7 @@ function SignIn({navigation}) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
-    function createUser() {
+    function signInUser() {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -28,9 +28,9 @@ function SignIn({navigation}) {
         };
 
         fetch("https://fjellturchallenge-backend-dev.herokuapp.com/api/v1/accounts/login", requestOptions)
-            .then(response => response.status)
             .then(result => {
-                if (result === 200) {
+                if (result.status === 200) {
+                    console.log('Success:'+ result.json().toString())
                     navigation.navigate("Home Screen")
                 }
             })
@@ -40,10 +40,10 @@ function SignIn({navigation}) {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
             <Text>Username</Text>
-            <TextInput placeholder="Username" onChangeText={user => setUsername(user)}></TextInput>
+            <TextInput value='tobias' placeholder="Username" onChangeText={user => setUsername(user)}></TextInput>
             <Text>Password</Text>
-            <TextInput secureTextEntry={true} placeholder="Password" onChangeText={pass => setPassword(pass)} ></TextInput>
-            <Button title="Sign In" onPress={() => createUser()}></Button>
+            <TextInput value='asdfasdf' secureTextEntry={true} placeholder="Password" onChangeText={pass => setPassword(pass)} ></TextInput>
+            <Button title="Sign In" onPress={() => signInUser()}></Button>
         </View>
     );
 };

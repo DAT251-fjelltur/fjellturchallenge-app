@@ -28,9 +28,9 @@ function SignUp({ navigation }) {
         };
 
         fetch("https://fjellturchallenge-backend-dev.herokuapp.com/api/v1/accounts/register", requestOptions)
-            .then(response => response.status)
             .then(result => {
-                if (result === 200) {
+                if (result.status === 200) {
+                    console.log('Success')
                     navigation.navigate("Sign In")
                 }
             })
