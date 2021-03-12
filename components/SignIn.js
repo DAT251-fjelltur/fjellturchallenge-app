@@ -19,6 +19,7 @@ function SignIn({navigation}) {
             "username": username,
             "password": password
         })
+        console.log(raw);
 
         var requestOptions = {
             method: 'POST',
@@ -33,6 +34,9 @@ function SignIn({navigation}) {
                     console.log('Success:'+ result.json().toString())
                     navigation.navigate("Home Screen")
                 }
+                else{
+                    console.log('login failed: '+result.body);
+                }
             })
             .catch(error => console.log('error', error));
     }
@@ -40,9 +44,9 @@ function SignIn({navigation}) {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
             <Text>Username</Text>
-            <TextInput value='tobias' placeholder="Username" onChangeText={user => setUsername(user)}></TextInput>
+            <TextInput  placeholder="Username" onChangeText={user => setUsername(user)}></TextInput>
             <Text>Password</Text>
-            <TextInput value='asdfasdf' secureTextEntry={true} placeholder="Password" onChangeText={pass => setPassword(pass)} ></TextInput>
+            <TextInput  secureTextEntry={true} placeholder="Password" onChangeText={pass => setPassword(pass)} ></TextInput>
             <Button title="Sign In" onPress={() => signInUser()}></Button>
         </View>
     );
