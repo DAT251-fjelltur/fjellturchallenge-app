@@ -24,7 +24,6 @@ import HomeScreen from "./app/views/HomeScreen"
 const Stack = createStackNavigator()
 
 function App() {
-
   return (
     <NavigationContainer>
       <Stack.Navigator>

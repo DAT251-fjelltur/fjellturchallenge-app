@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState } from 'react/cjs/react.development';
 
 
 /**
@@ -24,28 +25,21 @@ function signInUser(username, password) {
         body: raw,
         redirect: 'follow'
     };
-    var isSuccess = true;
-    fetch("https://fjellturchallenge-backend-dev.herokuapp.com/api/v1/accounts/login", requestOptions)
-    .then(response => {
-        console.log(response.status);
-        if(response.status!=200){
-            console.log('error logging in');
-        }else{
-            isSuccess=true;
-        }
-        return response.json()})
-    .then(result => {
-        token = result['jwt'];
-        console.log(token);
-        try {
-            AsyncStorage.setItem('@jwt', token)
-          } catch (e) {
-            console.error(e);
-          }
-    })
-    .catch(error => console.log('error', error));
 
-    return isSuccess;
+    fetch("https://fjellturchallenge-backend-dev.herokuapp.com/api/v1/accounts/login", requestOptions)
+        .then(response => {
+            console.log(response.status);
+            if (response.status !== 200) {
+                console.log('error logging in');
+            }
+            return response.json()
+        })
+        .then(result => {
+            let token = result['jwt'];
+            console.log("RESULT " + result);
+            AsyncStorage.setItem('@jwt', token)
+        })
+        .catch(error => console.log('error ', error));
 }
 /**
  * creates a user
@@ -78,4 +72,16 @@ function createUser(username, password) {
         .catch(error => console.log('error', error));
 }
 
-export {signInUser, createUser}
+async function getToken(setToken) {
+    try {
+        const tok = await AsyncStorage.getItem('@jwt')
+        if (tok !== null) {
+            console.log("Setting token")
+            setToken(tok)
+        }
+    } catch (e) {
+        console.log('Failed to fetch the data from storage ', e)
+    }
+}
+
+export { signInUser, createUser }

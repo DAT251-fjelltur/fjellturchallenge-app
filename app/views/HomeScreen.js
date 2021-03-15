@@ -1,16 +1,14 @@
 import { View, Text } from "react-native";
 import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState, useEffect } from "react/cjs/react.development";
 
-function getToken() {
-    console.log(AsyncStorage.getItem('@jwt').then(v => v));
-    
-}
 
 function HomeScreen() {
+
     return (
         <View>
-            <Text>{getToken()}</Text>
+            <Text>Home Screen</Text>
         </View>
     )
 }
