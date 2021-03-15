@@ -1,7 +1,11 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 /**
  * Sign in user
  * @param {String} username 
  * @param {String} password 
+ * @returns true if success
  */
 function signInUser(username, password) {
     console.log('signing in...');
@@ -20,21 +24,34 @@ function signInUser(username, password) {
         body: raw,
         redirect: 'follow'
     };
-
+    var isSuccess = true;
     fetch("https://fjellturchallenge-backend-dev.herokuapp.com/api/v1/accounts/login", requestOptions)
-        .then(result => {
-            if (result.status === 200) {
-                console.log('Success logging in:'+ result.text())
-                return true;
-            }
-            else{
-                console.log('login failed: '+result.body);
-            }
-        })
-        .then(data=>{console.log(data);})
-        .catch(error => console.log('error', error));
-}
+    .then(response => {
+        console.log(response.status);
+        if(response.status!=200){
+            console.log('error logging in');
+        }else{
+            isSuccess=true;
+        }
+        return response.json()})
+    .then(result => {
+        token = result['jwt'];
+        console.log(token);
+        try {
+            AsyncStorage.setItem('@jwt', token)
+          } catch (e) {
+            console.error(e);
+          }
+    })
+    .catch(error => console.log('error', error));
 
+    return isSuccess;
+}
+/**
+ * creates a user
+ * @param {*} username 
+ * @param {*} password 
+ */
 function createUser(username, password) {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
