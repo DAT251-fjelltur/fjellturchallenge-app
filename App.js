@@ -16,9 +16,9 @@ import {
   TextInput,
 } from 'react-native';
 
-import SignUp from "./components/SignUp"
-import SignIn from "./components/SignIn"
-import HomeScreen from "./components/HomeScreen"
+import SignUp from "./app/views/SignUp"
+import SignIn from "./app/views/SignIn"
+import HomeScreen from "./app/views/HomeScreen"
 
 
 const Stack = createStackNavigator()
