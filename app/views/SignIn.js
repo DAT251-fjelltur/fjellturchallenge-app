@@ -14,6 +14,7 @@ function SignIn({navigation}) {
 
     function signInButton(username, password){
         var success = signInUser(username, password);
+        console.log('moving to home', success);
         if(success){
                 navigation.navigate("Home Screen")
         }
