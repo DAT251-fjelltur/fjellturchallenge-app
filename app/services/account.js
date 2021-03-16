@@ -1,8 +1,36 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react/cjs/react.development';
-
+import {SERVER_URL, getToken} from '../services/utils';
 
 /**
+ * send a 'me' request
+ * @returns JSON info on logged in user
+ */
+export function me() {
+    var myHeaders = new Headers();
+    return token = getToken().then((token)=>{
+        //after token is read from storage, send request
+        myHeaders.append("Authorization", "Bearer "+token);
+    
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+    
+        var result = fetch(SERVER_URL+"/api/v1/accounts/me", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result); 
+                return result;
+            })
+            .catch(error => console.log('error sending me request', error));
+
+        return result;
+
+    })
+}
+/*
  * Sign in user and set jwt token in Asyncstorage
  */
 export function signInUser(username, password) {
@@ -14,7 +42,6 @@ export function signInUser(username, password) {
         "username": username,
         "password": password
     })
-    console.log(raw);
 
     var requestOptions = {
         method: 'POST',
@@ -23,7 +50,8 @@ export function signInUser(username, password) {
         redirect: 'follow'
     };
 
-    fetch("https://fjellturchallenge-backend-dev.herokuapp.com/api/v1/accounts/login", requestOptions)
+    console.log(SERVER_URL+"/api/v1/accounts/login");
+    fetch(SERVER_URL+"/api/v1/accounts/login", requestOptions)
         .then(response => {
             console.log(response.status);
             if (response.status !== 200) {
@@ -31,9 +59,9 @@ export function signInUser(username, password) {
             }
             return response.json()
         })
-        .then(result => {
-            let token = result['jwt'];
-            console.log("RESULT " + result);
+        .then(resultJson => {
+            let token = resultJson['jwt'];
+            console.log("RESULT " + resultJson);
             AsyncStorage.setItem('@jwt', token)
         })
         .catch(error => console.log('error ', error));
@@ -60,7 +88,7 @@ export function createUser(username, password) {
         redirect: 'follow'
     };
 
-    fetch("https://fjellturchallenge-backend-dev.herokuapp.com/api/v1/accounts/register", requestOptions)
+    fetch(SERVER_URL+"/api/v1/accounts/register", requestOptions)
         .then(result => {
             if (result.status === 200) {
                 console.log('Success')
