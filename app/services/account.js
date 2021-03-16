@@ -5,7 +5,7 @@ import { useState } from 'react/cjs/react.development';
 /**
  * Sign in user and set jwt token in Asyncstorage
  */
-function signInUser(username, password) {
+export function signInUser(username, password) {
     console.log('signing in...');
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -44,7 +44,7 @@ function signInUser(username, password) {
  * @param {*} username 
  * @param {*} password 
  */
-function createUser(username, password) {
+export function createUser(username, password) {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -69,19 +69,3 @@ function createUser(username, password) {
         })
         .catch(error => console.log('error', error));
 }
-/**
- * get a jwt token from AsyncStorage
- */
-async function getToken(setToken) {
-    try {
-        const tok = await AsyncStorage.getItem('@jwt')
-        if (tok !== null) {
-            console.log("Setting token")
-            setToken(tok)
-        }
-    } catch (e) {
-        console.log('Failed to fetch the data from storage ', e)
-    }
-}
-
-export { signInUser, createUser }

@@ -8,26 +8,16 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { signInUser } from '../services/account';
-
+import { get } from 'react-native/Libraries/Utilities/PixelRatio';
+import {getToken} from '../services/utils';
 
 
 
 function SignIn({ navigation }) {
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
-    const [token, setToken] = useState("")
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    var token = '';
 
-    const getToken = async () => {
-        try {
-            const tok = await AsyncStorage.getItem('@jwt')
-            if (tok !== null) {
-                console.log("Setting token")
-                setToken(tok)
-            }
-        } catch (e) {
-            console.log('Failed to fetch the data from storage ', e)
-        }
-    }
 
     /**
      * Send request to sign in user and move to homescreen if login is successful
@@ -36,7 +26,7 @@ function SignIn({ navigation }) {
      */
     function signInButton(username, password) {
         signInUser(username, password);
-        getToken()
+        token = getToken();
         if (token) {
             console.log('moving to home');
             navigation.navigate("Home Screen")
