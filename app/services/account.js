@@ -4,11 +4,11 @@ import {SERVER_URL, getToken} from '../services/utils';
 
 /**
  * send a 'me' request
- * @returns JSON info on logged in user
+ * @returns promise<JSON> info on logged in user
  */
 export function me() {
     var myHeaders = new Headers();
-    return token = getToken().then((token)=>{
+    return getToken().then((token)=>{
         //after token is read from storage, send request
         myHeaders.append("Authorization", "Bearer "+token);
     
@@ -27,7 +27,6 @@ export function me() {
             .catch(error => console.log('error sending me request', error));
 
         return result;
-
     })
 }
 /*
@@ -69,8 +68,6 @@ export function signInUser(username, password) {
 /**
  * creates a user
  * navigtes to sign in if succesful
- * @param {*} username 
- * @param {*} password 
  */
 export function createUser(username, password) {
     let myHeaders = new Headers();

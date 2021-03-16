@@ -7,14 +7,13 @@ import {me} from '../services/account';
 
 function HomeScreen() {
     
-    const [user, setUser] = useState("no name");
+    const [user, setUser] = useState("");
 
     useEffect(()=>{
         me().then(json => {
-            //after info is fetched, update page
+            //after user info is fetched, update page
             setUser(json['username']);
         })
-        console.log('set username to ',me().then(json => json['username']));
     })
 
     return (

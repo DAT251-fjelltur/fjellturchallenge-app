@@ -1,20 +1,21 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export const SERVER_URL = 'https://fjellturchallenge-backend-dev.herokuapp.com'
+
 /**
  * lookup Asyncstorage for a jwt token
- * @returns String: jwt token
+ * @returns promise<String>: jwt token
  */
-export const getToken =()  => {
+export const getToken =()=> {
     try {
         const tok = AsyncStorage.getItem('@jwt')
         if (tok !== null) {
             return tok;
         }
         else{
-            console.log('did not find Token');
+            console.log('No token in storage');
         }
     } catch (e) {
         console.log('Failed to fetch the data from storage ', e)
     }
 }
-
-export const SERVER_URL = 'https://fjellturchallenge-backend-dev.herokuapp.com'
