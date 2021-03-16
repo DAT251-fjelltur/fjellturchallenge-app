@@ -3,10 +3,7 @@ import { useState } from 'react/cjs/react.development';
 
 
 /**
- * Sign in user
- * @param {String} username 
- * @param {String} password 
- * @returns true if success
+ * Sign in user and set jwt token in Asyncstorage
  */
 function signInUser(username, password) {
     console.log('signing in...');
@@ -43,6 +40,7 @@ function signInUser(username, password) {
 }
 /**
  * creates a user
+ * navigtes to sign in if succesful
  * @param {*} username 
  * @param {*} password 
  */
@@ -71,7 +69,9 @@ function createUser(username, password) {
         })
         .catch(error => console.log('error', error));
 }
-
+/**
+ * get a jwt token from AsyncStorage
+ */
 async function getToken(setToken) {
     try {
         const tok = await AsyncStorage.getItem('@jwt')
