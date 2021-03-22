@@ -34,7 +34,7 @@ function HomeScreen({ navigation }) {
     function startActivity() {
         if (activity !== null){
             console.log('An activity is already in progress');
-            //navigation.navigate("During Activity");
+            navigation.navigate("During Activity");
         } else {
             console.log('moving to start activity');
             navigation.navigate("Start Activity");

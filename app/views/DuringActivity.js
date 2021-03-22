@@ -36,7 +36,7 @@ function DuringActivity({ navigation }) {
         } else {
             console.log('Ending activity ' + activity);
             endActivity(activity, 0, 0, 0);
-            navigation.navigate("During Activity")
+            navigation.navigate("Home Screen")
         }
 
     }
