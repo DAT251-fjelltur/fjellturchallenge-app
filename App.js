@@ -21,6 +21,7 @@ import SignIn from "./app/views/SignIn"
 import HomeScreen from "./app/views/HomeScreen"
 import StartActivity from "./app/views/StartActivity"
 import DuringActivity from "./app/views/DuringActivity"
+import AfterActivity from "./app/views/AfterActivity"
 
 
 const Stack = createStackNavigator()
@@ -34,6 +35,7 @@ function App() {
         <Stack.Screen name="Home Screen" component={HomeScreen} />
         <Stack.Screen name="Start Activity" component={StartActivity} />
         <Stack.Screen name="During Activity" component={DuringActivity} />
+        <Stack.Screen name="After Activity" component={AfterActivity} />
 
       </Stack.Navigator>
     </NavigationContainer>

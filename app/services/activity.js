@@ -58,10 +58,10 @@ export function current() {
         let result = fetch(SERVER_URL+"/api/v1/trip/current", requestOptions)
           .then(response => response.json())
           .then(result => {
-              console.log(result);
+              console.log('current trip:', result);
               return result;
           })
-          .catch(error => console.log('error sending me request', error));
+          .catch(error => console.log('error sending current request', error));
 
         return result;
     })

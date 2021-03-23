@@ -34,9 +34,10 @@ function DuringActivity({ navigation }) {
             console.log('No activity in progress');
             navigation.navigate("Start Activity");
         } else {
-            console.log('Ending activity ' + activity);
+            var activityIdTemp = activity;
+            console.log('Ending activity ' + activityIdTemp );
             endActivity(activity, 0, 0, 0);
-            navigation.navigate("Home Screen")
+            navigation.navigate("After Activity", {id: activityIdTemp });
         }
 
     }
