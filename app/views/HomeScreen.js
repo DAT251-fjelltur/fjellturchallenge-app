@@ -29,7 +29,7 @@ function HomeScreen({ navigation }) {
 
 
     /**
-     * Send request to start trip page
+     * go to ongoing activity or start a new activity 
      */
     function startActivity() {
         if (activityID !== null){
@@ -43,8 +43,8 @@ function HomeScreen({ navigation }) {
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>{user}</Text>
-            <Button title="Activity" onPress={() => startActivity()}></Button>
+            <Text>logged in as {user}</Text>
+            <Button title="start new or continue trip" onPress={() => startActivity()}></Button>
         </View>
     )
 }

@@ -39,8 +39,8 @@ function DuringActivity({ navigation }) {
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Here you can stop your activity</Text>
-            <Button title="end" onPress={() => end()}></Button>
+            <Text>Trip is in progess</Text>
+            <Button title="end trip" onPress={() => end()}></Button>
         </View>
     );
 };

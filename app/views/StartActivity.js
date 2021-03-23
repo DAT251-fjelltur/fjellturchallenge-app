@@ -12,9 +12,6 @@ import { current } from '../services/activity';
 
 
 function StartActivity({ navigation }) {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    var token = '';
 
     const [activityID, setActivityID] = useState("");
 
@@ -39,14 +36,12 @@ function StartActivity({ navigation }) {
             startActivity(0, 0, 0)
             navigation.navigate("During Activity")
         }
-
-
     }
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text>Here you can start your activity</Text>
-            <Button title="start" onPress={() => start()}></Button>
+            <Button title="start trip" onPress={() => start()}></Button>
         </View>
     );
 };
