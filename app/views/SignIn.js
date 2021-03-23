@@ -13,10 +13,11 @@ import {getToken} from '../services/utils';
 
 
 
-function SignIn({ navigation }) {
+function SignIn({ route, navigation }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     var token = '';
+    const { setLoggedIn } = route.params
 
 
     /**
@@ -26,10 +27,12 @@ function SignIn({ navigation }) {
      */
     function signInButton(username, password) {
         signInUser(username, password);
+        //console.log("SET LOGGED IN: " + loggedIn);
         token = getToken();
         if (token) {
             console.log('moving to home');
-            navigation.navigate("Home Screen")
+            setLoggedIn(true)
+            
         }
         else {
             console.log("Token is not set " + token)

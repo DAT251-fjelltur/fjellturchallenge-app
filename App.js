@@ -26,16 +26,27 @@ import AfterActivity from "./app/views/AfterActivity"
 
 const Stack = createStackNavigator()
 
+
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false)
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Sign Up" component={SignUp} />
-        <Stack.Screen name="Sign In" component={SignIn} />
-        <Stack.Screen name="Home Screen" component={HomeScreen} />
-        <Stack.Screen name="Start Activity" component={StartActivity} />
-        <Stack.Screen name="During Activity" component={DuringActivity} />
-        <Stack.Screen name="After Activity" component={AfterActivity} />
+        {!loggedIn ?
+          <>
+            <Stack.Screen name="Sign Up" component={SignUp} />
+            <Stack.Screen name="Sign In" component={SignIn} initialParams={{ setLoggedIn: setLoggedIn }}/>
+          </>
+          :
+          <>
+            <Stack.Screen name="Home Screen" component={HomeScreen} />
+            <Stack.Screen name="Start Activity" component={StartActivity} />
+            <Stack.Screen name="During Activity" component={DuringActivity} />
+            <Stack.Screen name="After Activity" component={AfterActivity} />
+          </>
+        }
+
 
       </Stack.Navigator>
     </NavigationContainer>
