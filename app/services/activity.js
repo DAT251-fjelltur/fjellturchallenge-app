@@ -28,15 +28,15 @@ export function startActivity(la, lo, ac) {
           redirect: 'follow'
         };
 
-        fetch(SERVER_URL+"/api/v1/trip/start", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                console.log("o");
-                console.log(result);
-                console.log("u");
-                return result;
-            })
-            .catch(error => console.log('error sending me request', error));
+        let result = fetch(SERVER_URL+"/api/v1/trip/start", requestOptions)
+          .then(response => response.json())
+          .then(result => {
+              console.log("activity.startActivity result: " + result);
+              return result;
+          })
+          .catch(error => console.log('error sending start activity request', error));
+
+        return result;
     })
 }
 
@@ -58,7 +58,7 @@ export function current() {
         let result = fetch(SERVER_URL+"/api/v1/trip/current", requestOptions)
           .then(response => response.json())
           .then(result => {
-              console.log('current trip:', result);
+              console.log("activity.current result: " + result);
               return result;
           })
           .catch(error => console.log('error sending current request', error));
@@ -93,7 +93,35 @@ export function endActivity(cur, la, lo, ac) {
 
         fetch(SERVER_URL+"/api/v1/trip/"+cur+"/stop", requestOptions)
           .then(response => response.text())
-          .then(result => console.log(result))
-          .catch(error => console.log('error', error));
+          .then(result => console.log("activity.endActivity result: " + result))
+          .catch(error => console.log('error sending en activity request', error));
+    })
+}
+
+
+/**
+ * get info about trip
+ */
+export function getInfo(cur) {
+    let myHeaders = new Headers();
+        return getToken().then((token)=>{
+            //after token is read from storage, send request
+            myHeaders.append("Authorization", "Bearer "+token);
+
+        let requestOptions = {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow'
+        };
+
+        let result = fetch(SERVER_URL+"/api/v1/trip/"+cur+"/info", requestOptions)
+              .then(response => response.json())
+              .then(result => {
+                  console.log("activity.getInfo result: " + result);
+                  return result;
+              })
+              .catch(error => console.log('error sending current request', error));
+
+            return result;
     })
 }

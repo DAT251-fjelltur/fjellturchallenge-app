@@ -6,38 +6,33 @@ import {
     TextInput,
     Button
 } from 'react-native';
-import { endActivity } from '../services/activity';
-import { current } from '../services/activity';
-
+import { endActivity, current, getInfo } from '../services/activity';
 
 
 function DuringActivity({ navigation }) {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    var token = '';
-
-    const [activity, setActivity] = useState("");
+    const [activityID, setActivityID] = useState("");
 
     useEffect(()=>{
         current().then(json => {
-            //after user info is fetched, update page
-            setActivity(json["id"]);
+            //after current activity id is fetched, update page
+            setActivityID(json["id"]);
         })
+
     })
+
+    console.log("EndActivity ID: " + activityID);
 
     /**
      * End current activity
      */
     function end() {
-        console.log("Activity: " + activity);
-        if (activity === null){
-            console.log('No activity in progress');
+        if (activityID === null){
+            console.log('------No activity in progress--------');
             navigation.navigate("Start Activity");
         } else {
-            var activityIdTemp = activity;
-            console.log('Ending activity ' + activityIdTemp );
-            endActivity(activity, 0, 0, 0);
-            navigation.navigate("After Activity", {id: activityIdTemp });
+            console.log('Ending activity ' + activityID);
+            endActivity(activityID, 0, 0, 0);
+            navigation.navigate("Home Screen")
         }
 
     }
@@ -49,5 +44,6 @@ function DuringActivity({ navigation }) {
         </View>
     );
 };
+
 
 export default DuringActivity

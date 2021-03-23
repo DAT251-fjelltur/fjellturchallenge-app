@@ -16,27 +16,27 @@ function StartActivity({ navigation }) {
     const [password, setPassword] = useState("");
     var token = '';
 
-    const [activity, setActivity] = useState("");
+    const [activityID, setActivityID] = useState("");
 
     useEffect(()=>{
         current().then(json => {
             //after user info is fetched, update page
-            setActivity(json["id"]);
+            setActivityID(json["id"]);
         })
     })
 
-
+    console.log("StartActivity ID: " + activityID);
     /**
      * Starts a trip
      */
     function start() {
-        console.log("Activity: " + activity);
-        if (activity !== null){
+
+        if (activityID !== null){
             console.log('An activity is already in progress');
             navigation.navigate("During Activity");
         } else {
             console.log('starting activity');
-            startActivity(0, 0, 0);
+            startActivity(0, 0, 0)
             navigation.navigate("During Activity")
         }
 

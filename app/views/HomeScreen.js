@@ -14,7 +14,7 @@ import { current } from '../services/activity';
 function HomeScreen({ navigation }) {
     
     const [user, setUser] = useState("");
-    const [activity, setActivity] = useState("");
+    const [activityID, setActivityID] = useState("");
 
     useEffect(()=>{
         me().then(json => {
@@ -23,7 +23,7 @@ function HomeScreen({ navigation }) {
         })
         current().then(json => {
             //after user info is fetched, update page
-            setActivity(json["id"]);
+            setActivityID(json["id"]);
         })
     })
 
@@ -32,11 +32,11 @@ function HomeScreen({ navigation }) {
      * Send request to start trip page
      */
     function startActivity() {
-        if (activity !== null){
-            console.log('An activity is already in progress');
+        if (activityID !== null){
+            //console.log('An activity is already in progress');
             navigation.navigate("During Activity");
         } else {
-            console.log('moving to start activity');
+            //console.log('moving to start activity');
             navigation.navigate("Start Activity");
         }
     }
