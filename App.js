@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
@@ -22,7 +22,7 @@ import HomeScreen from "./app/views/HomeScreen"
 import StartActivity from "./app/views/StartActivity"
 import DuringActivity from "./app/views/DuringActivity"
 import AfterActivity from "./app/views/AfterActivity"
-
+import { getToken } from "./app/services/utils"
 
 const Stack = createStackNavigator()
 
@@ -30,13 +30,21 @@ const Stack = createStackNavigator()
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
 
+  useEffect(() => {
+    getToken().then(result => {
+      if (result) {
+        setLoggedIn(true)
+      }
+    })
+  }, [])
+  
   return (
     <NavigationContainer>
       <Stack.Navigator>
         {!loggedIn ?
           <>
             <Stack.Screen name="Sign Up" component={SignUp} />
-            <Stack.Screen name="Sign In" component={SignIn} initialParams={{ setLoggedIn: setLoggedIn }}/>
+            <Stack.Screen name="Sign In" component={SignIn} initialParams={{ setLoggedIn: setLoggedIn }} />
           </>
           :
           <>
