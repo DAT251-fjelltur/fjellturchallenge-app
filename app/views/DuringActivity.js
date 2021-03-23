@@ -32,7 +32,7 @@ function DuringActivity({ navigation }) {
         } else {
             console.log('Ending activity ' + activityID);
             endActivity(activityID, 0, 0, 0);
-            navigation.navigate("Home Screen")
+            navigation.navigate("After Activity", {id: activityID})
         }
 
     }
