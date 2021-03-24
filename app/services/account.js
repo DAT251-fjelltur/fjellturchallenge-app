@@ -32,7 +32,7 @@ export function me() {
 /*
  * Sign in user and set jwt token in Asyncstorage
  */
-export function signInUser(username, password) {
+export function signInUser(username, password, setLoggedIn) {
     console.log('signing in...');
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -62,6 +62,7 @@ export function signInUser(username, password) {
             let token = resultJson['jwt'];
             console.log("RESULT " + resultJson);
             AsyncStorage.setItem('@jwt', token)
+            setLoggedIn(true)
         })
         .catch(error => console.log('error ', error));
 }

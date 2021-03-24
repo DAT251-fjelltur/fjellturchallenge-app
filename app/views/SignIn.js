@@ -25,18 +25,8 @@ function SignIn({ route, navigation }) {
      * @param {} username 
      * @param {*} password 
      */
-    function signInButton(username, password) {
-        signInUser(username, password);
-        //console.log("SET LOGGED IN: " + loggedIn);
-        token = getToken();
-        if (token) {
-            console.log('moving to home');
-            setLoggedIn(true)
-            
-        }
-        else {
-            console.log("Token is not set " + token)
-        }
+    function signInButton(username, password, setLoggedIn) {
+        signInUser(username, password, setLoggedIn);
     }
 
     return (
@@ -45,7 +35,7 @@ function SignIn({ route, navigation }) {
             <TextInput placeholder="Username" onChangeText={user => setUsername(user)}></TextInput>
             <Text>Password</Text>
             <TextInput secureTextEntry={true} placeholder="Password" onChangeText={pass => setPassword(pass)} ></TextInput>
-            <Button title="Sign In" onPress={() => signInButton(username, password)}></Button>
+            <Button title="Sign In" onPress={() => signInButton(username, password, setLoggedIn)}></Button>
         </View>
     );
 };

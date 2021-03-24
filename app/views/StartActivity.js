@@ -20,7 +20,7 @@ function StartActivity({ navigation }) {
             //after user info is fetched, update page
             setActivityID(json["id"]);
         })
-    })
+    }, [])
 
     console.log("StartActivity ID: " + activityID);
     /**

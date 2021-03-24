@@ -28,7 +28,7 @@ function HomeScreen({ route, navigation }) {
             //after user info is fetched, update page
             setActivityID(json["id"]);
         })
-    })
+    }, [])
 
 
     /**

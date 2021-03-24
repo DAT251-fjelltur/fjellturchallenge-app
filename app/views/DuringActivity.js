@@ -18,7 +18,7 @@ function DuringActivity({ navigation }) {
             setActivityID(json["id"]);
         })
 
-    })
+    }, [])
 
     console.log("EndActivity ID: " + activityID);
 
