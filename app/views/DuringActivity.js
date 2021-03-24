@@ -12,7 +12,7 @@ import { endActivity, current, getInfo } from '../services/activity';
 function DuringActivity({ navigation }) {
     const [activityID, setActivityID] = useState("");
 
-    useEffect(()=>{
+    useEffect(() => {
         current().then(json => {
             //after current activity id is fetched, update page
             setActivityID(json["id"]);
@@ -26,13 +26,13 @@ function DuringActivity({ navigation }) {
      * End current activity
      */
     function end() {
-        if (activityID === null){
+        if (activityID === null) {
             console.log('------No activity in progress--------');
             navigation.navigate("Start Activity");
         } else {
             console.log('Ending activity ' + activityID);
             endActivity(activityID, 0, 0, 0);
-            navigation.navigate("After Activity", {id: activityID})
+            navigation.navigate("After Activity", { id: activityID })
         }
 
     }
@@ -40,7 +40,9 @@ function DuringActivity({ navigation }) {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text>Trip is in progess</Text>
-            <Button title="end trip" onPress={() => end()}></Button>
+            { activityID !== "" ? <Button title="end trip" onPress={() => end()}></Button> :
+                <Text>LOADING</Text>
+            }
         </View>
     );
 };
