@@ -48,7 +48,7 @@ function App() {
           </>
           :
           <>
-            <Stack.Screen name="Home Screen" component={HomeScreen} />
+            <Stack.Screen name="Home Screen" component={HomeScreen} initialParams={{ setLoggedIn: setLoggedIn }} />
             <Stack.Screen name="Start Activity" component={StartActivity} />
             <Stack.Screen name="During Activity" component={DuringActivity} />
             <Stack.Screen name="After Activity" component={AfterActivity} />

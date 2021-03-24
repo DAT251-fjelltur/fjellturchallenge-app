@@ -19,3 +19,16 @@ export const getToken =()=> {
         console.log('Failed to fetch the data from storage ', e)
     }
 }
+
+export function deleteToken() {
+    return getToken().then((token)=>{
+        try {
+            AsyncStorage.removeItem('@jwt');
+            return true;
+        }
+        catch(exception) {
+            console.log("ERROR: " + exception)
+            return false;
+        }
+    })
+}
