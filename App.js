@@ -17,10 +17,9 @@ import {
 } from 'react-native';
 
 import SignUp from "./app/views/SignUp"
+import trip from './app/views/trip'
 import SignIn from "./app/views/SignIn"
 import HomeScreen from "./app/views/HomeScreen"
-import StartActivity from "./app/views/StartActivity"
-import DuringActivity from "./app/views/DuringActivity"
 import AfterActivity from "./app/views/AfterActivity"
 import { getToken } from "./app/services/utils"
 
@@ -49,8 +48,7 @@ function App() {
           :
           <>
             <Stack.Screen name="Home Screen" component={HomeScreen} initialParams={{ setLoggedIn: setLoggedIn }} />
-            <Stack.Screen name="Start Activity" component={StartActivity} />
-            <Stack.Screen name="During Activity" component={DuringActivity} />
+            <Stack.Screen name="Trip" component={trip} />
             <Stack.Screen name="After Activity" component={AfterActivity} />
           </>
         }

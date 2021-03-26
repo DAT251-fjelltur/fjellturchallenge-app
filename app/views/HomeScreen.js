@@ -35,6 +35,8 @@ function HomeScreen({ route, navigation }) {
      * go to ongoing activity or start a new activity 
      */
     function startActivity() {
+        navigation.navigate('Trip')
+        return;
         if (activityID !== null){
             //console.log('An activity is already in progress');
             navigation.navigate("During Activity");

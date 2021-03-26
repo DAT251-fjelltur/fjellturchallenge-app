@@ -21,6 +21,11 @@ export function startActivity(la, lo, ac) {
           }
         });
 
+        raw = JSON.stringify({
+            "latitude": 0.0,
+            "longitude": 0.0,
+            "accuracy": 0.0
+        });
         let requestOptions = {
           method: 'POST',
           headers: myHeaders,
@@ -58,7 +63,7 @@ export function current() {
         let result = fetch(SERVER_URL+"/api/v1/trip/current", requestOptions)
           .then(response => response.json())
           .then(result => {
-              console.log("activity.current result: " + result);
+              //console.log("activity.current result: " + result);
               return result;
           })
           .catch(error => console.log('error sending current request', error));
