@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
     StyleSheet,
     View,
@@ -6,11 +6,12 @@ import {
     TextInput,
     Button
 } from 'react-native';
-import {createUser} from '../services/account';
+import { Context as AuthContext } from '../context/AuthContext'
 
 function SignUp({ navigation }) {
-    const [username, setUsername] = useState("")
+    const [userName, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const { state, signup } = useContext(AuthContext);
 
 
     return (
@@ -19,7 +20,7 @@ function SignUp({ navigation }) {
             <TextInput placeholder="Username" onChangeText={user => setUsername(user)}></TextInput>
             <Text>Password</Text>
             <TextInput secureTextEntry={true} placeholder="Password" onChangeText={pass => setPassword(pass)} ></TextInput>
-            <Button title="REGISTER" onPress={() => createUser(username, password)}></Button>
+            <Button title="REGISTER" onPress={() => { signup({ userName, password, navigation }) }}></Button>
             <Text>Already have an account? </Text>
             <Text onPress={() => navigation.navigate("Sign In")}>Sign in here</Text>
         </View>

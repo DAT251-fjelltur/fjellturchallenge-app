@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
     StyleSheet,
     View,
@@ -9,15 +9,14 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { signInUser } from '../services/account';
 import { get } from 'react-native/Libraries/Utilities/PixelRatio';
-import {getToken} from '../services/utils';
+import { getToken } from '../services/utils';
+import { Context as AuthContext } from '../context/AuthContext'
 
 
-
-function SignIn({ route, navigation }) {
-    const [username, setUsername] = useState("");
+function SignIn({ navigation }) {
+    const [userName, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    var token = '';
-    const { setLoggedIn } = route.params
+    const { state, signin } = useContext(AuthContext);
 
 
     /**
@@ -25,17 +24,14 @@ function SignIn({ route, navigation }) {
      * @param {} username 
      * @param {*} password 
      */
-    function signInButton(username, password, setLoggedIn) {
-        signInUser(username, password, setLoggedIn);
-    }
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text>Username</Text>
-            <TextInput placeholder="Username" onChangeText={user => setUsername(user)}></TextInput>
+            <TextInput placeholder="Username" onChangeText={setUsername}></TextInput>
             <Text>Password</Text>
-            <TextInput secureTextEntry={true} placeholder="Password" onChangeText={pass => setPassword(pass)} ></TextInput>
-            <Button title="Sign In" onPress={() => signInButton(username, password, setLoggedIn)}></Button>
+            <TextInput secureTextEntry={true} placeholder="Password" onChangeText={setPassword} ></TextInput>
+            <Button title="Sign In" onPress={() => { signin({ userName, password }) }}></Button>
         </View>
     );
 };

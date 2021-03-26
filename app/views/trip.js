@@ -20,41 +20,40 @@ function StartActivity({ navigation }) {
             //after user info is fetched, update page
             console.log('checks if trip is ongoing...');
             setActivityID(json["tripId"]);
-            console.log('current json', json);
-            console.log('trip id is now ', activityID);
+            console.log('current trip ongoing: ', json['ongoing']);
+            console.log('trip id: ', activityID.substring(0,8));
         })
     }, [])
     /**
-     * end a ongoing trip
+     * end a ongoing trip and move to post trip view
      */
     function end() {
         if (!activityID) {
-            console.log('------No activity in progress--------');
+            console.error('No trip to end!');
             //navigation.navigate("Start Activity");
         } else {
-            console.log('Ending activity ' + activityID);
+            console.log('Ending activity ' + activityID.substring(0,8));
             endActivity(activityID, 0, 0, 0);
+            //TODO: potential error in ending activity
             setActivityID(null);
             navigation.navigate("After Activity", { id: activityID })
         }
 
     }
     /**
-     * Starts a trip
+     * Starts a trip and update state
      */
     async function start() {
         if (activityID) {
-            console.log('An activity is already in progress, cant start trip');
+            console.error('An activity is already in progress, cant start trip');
             return;
         }
-        console.log('starting activity');
+        console.log('starting a new trip');
         json = await startActivity(0, 0, 0)
-
-        console.log('activity ', json);
+        console.log('started a trip: ', json);
         currentJson = await current()
         //after current activity id is fetched, update page
         setActivityID(json["id"]);
-        console.log('func start: id is now ', activityID);
     }
 
     if (activityID) {
