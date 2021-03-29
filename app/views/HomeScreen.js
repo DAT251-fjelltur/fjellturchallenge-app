@@ -19,7 +19,7 @@ function HomeScreen({ navigation }) {
     useEffect(()=>{
         current().then(json => {
             //after user info is fetched, update page
-            setActivityID(json["id"]);
+            setActivityID(json["tripId"]);
         })
     }, [])
 

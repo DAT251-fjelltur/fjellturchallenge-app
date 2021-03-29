@@ -21,7 +21,7 @@ function StartActivity({ navigation }) {
             console.log('checks if trip is ongoing...');
             setActivityID(json["tripId"]);
             console.log('current trip ongoing: ', json['ongoing']);
-            console.log('trip id: ', activityID.substring(0,8));
+            console.log('trip id: ', activityID); //.substring(0,8));
         })
     }, [])
     /**
@@ -32,7 +32,7 @@ function StartActivity({ navigation }) {
             console.error('No trip to end!');
             //navigation.navigate("Start Activity");
         } else {
-            console.log('Ending activity ' + activityID.substring(0,8));
+            console.log('Ending activity ' + activityID); //.substring(0,8));
             endActivity(activityID, 0, 0, 0);
             //TODO: potential error in ending activity
             setActivityID(null);
@@ -53,7 +53,7 @@ function StartActivity({ navigation }) {
         console.log('started a trip: ', json);
         currentJson = await current()
         //after current activity id is fetched, update page
-        setActivityID(json["id"]);
+        setActivityID(json["tripId"]);
     }
 
     if (activityID) {

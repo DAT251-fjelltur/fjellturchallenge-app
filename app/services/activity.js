@@ -2,7 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react/cjs/react.development';
 import {SERVER_URL, getToken} from '../services/utils';
 
-let tok = getToken();
 /**
  * start activity
  */
@@ -14,11 +13,9 @@ export function startActivity(la, lo, ac) {
         myHeaders.append("Content-Type", "application/json");
 
         let raw = JSON.stringify({
-          "startLocation": {
             "latitude": 0.0,
             "longitude": 0.0,
             "accuracy": 0.0
-          }
         });
 
         raw = JSON.stringify({
@@ -96,7 +93,7 @@ export function endActivity(cur, la, lo, ac) {
           redirect: 'follow'
         };
 
-        fetch(SERVER_URL+"/api/v1/trip/"+cur+"/stop", requestOptions)
+        fetch(SERVER_URL+"/api/v1/trip/stop", requestOptions)
           .then(response => response.text())
           .then(result => console.log("activity.endActivity result: " + result))
           .catch(error => console.log('error sending en activity request', error));
