@@ -30,7 +30,7 @@ export function me() {
     })
 }
 /*
- * Sign in user and set jwt token in Asyncstorage
+ * deprecated??
  */
 export function signInUser(username, password, setLoggedIn) {
     console.log('signing in...');

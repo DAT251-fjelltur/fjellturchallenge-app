@@ -33,7 +33,6 @@ export function startActivity(la, lo, ac) {
         let result = fetch(SERVER_URL+"/api/v1/trip/start", requestOptions)
           .then(response => response.json())
           .then(result => {
-              console.log("activity.startActivity result: " + result);
               return result;
           })
           .catch(error => console.log('error sending start activity request', error));
@@ -43,7 +42,7 @@ export function startActivity(la, lo, ac) {
 }
 
 /**
- * current
+ * get current trip
  */
 export function current() {
     let myHeaders = new Headers();

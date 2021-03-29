@@ -1,6 +1,7 @@
 
 import createDataContext from './createDataContext';
 import {SERVER_URL} from '../services/utils';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const authReducer = (state, action) => {
     switch (action.type) {
         case 'signout':
@@ -73,6 +74,7 @@ const signin = dispatch => {
                 return response.json()
             })
             .then(resultJson => {
+            AsyncStorage.setItem('@jwt', resultJson['jwt'])
                 dispatch({
                     type: 'signin',
                     payload: {

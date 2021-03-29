@@ -30,7 +30,6 @@ function StartActivity({ navigation }) {
     function end() {
         if (!activityID) {
             console.error('No trip to end!');
-            //navigation.navigate("Start Activity");
         } else {
             console.log('Ending activity ' + activityID); //.substring(0,8));
             endActivity(activityID, 0, 0, 0);
@@ -50,10 +49,10 @@ function StartActivity({ navigation }) {
         }
         console.log('starting a new trip');
         json = await startActivity(0, 0, 0)
-        console.log('started a trip: ', json);
+        console.log('started a trip with id ', json['id']);
         currentJson = await current()
         //after current activity id is fetched, update page
-        setActivityID(json["tripId"]);
+        setActivityID(json["id"])
     }
 
     if (activityID) {

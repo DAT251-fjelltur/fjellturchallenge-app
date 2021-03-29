@@ -1,11 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import useContext from 'react'
+import { Context as AuthContext } from '../context/AuthContext';
 export const SERVER_URL = 'https://fjellturchallenge-backend-dev.herokuapp.com'
 
 /**
  * lookup Asyncstorage for a jwt token
- * @returns promise<String>: jwt token
+ * @returns promise <String>: jwt token
  */
+
 export const getToken =()=> {
     try {
         const tok = AsyncStorage.getItem('@jwt')
