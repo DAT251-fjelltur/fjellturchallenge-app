@@ -14,6 +14,7 @@ import {
   View,
   Text,
   TextInput,
+  ActivityIndicator
 } from 'react-native';
 
 import SignUp from "./app/views/SignUp"
@@ -23,16 +24,13 @@ import HomeScreen from "./app/views/HomeScreen"
 import AfterActivity from "./app/views/AfterActivity"
 import { Provider as AuthProvider } from './app/context/AuthContext.js';
 import { Context as AuthContext } from './app/context/AuthContext';
+import Loading from './app/components/Loading'
 
 const Stack = createStackNavigator()
 
 
 function App() {
   const { state } = useContext(AuthContext);
-
-  useEffect(() => {
-    console.log("TOKEN: ", state.token)
-  }, [state.token])
 
   return (
     <NavigationContainer>
@@ -49,8 +47,6 @@ function App() {
             <Stack.Screen name="After Activity" component={AfterActivity} />
           </>
         }
-
-
       </Stack.Navigator>
     </NavigationContainer>
   );

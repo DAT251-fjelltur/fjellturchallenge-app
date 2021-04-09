@@ -4,20 +4,22 @@ import {
     View,
     Text,
     TextInput,
-    Button
+    Button,
+    ActivityIndicator
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { signInUser } from '../services/account';
 import { get } from 'react-native/Libraries/Utilities/PixelRatio';
 import { getToken } from '../services/utils';
 import { Context as AuthContext } from '../context/AuthContext'
+import Loading from '../components/Loading'
 
 
 function SignIn({ navigation }) {
     const [userName, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const { state, signin } = useContext(AuthContext);
-
+    const [loading, setLoading] = useState(false)
 
     /**
      * Send request to sign in user and move to homescreen if login is successful
@@ -26,13 +28,19 @@ function SignIn({ navigation }) {
      */
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Username</Text>
-            <TextInput placeholder="Username" onChangeText={setUsername}></TextInput>
-            <Text>Password</Text>
-            <TextInput secureTextEntry={true} placeholder="Password" onChangeText={setPassword} ></TextInput>
-            <Button title="Sign In" onPress={() => { signin({ userName, password }) }}></Button>
-        </View>
+        <>
+            {loading ?
+                <Loading></Loading>
+                :
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <Text>Username</Text>
+                    <TextInput placeholder="Username" onChangeText={setUsername}></TextInput>
+                    <Text>Password</Text>
+                    <TextInput secureTextEntry={true} placeholder="Password" onChangeText={setPassword} ></TextInput>
+                    <Button title="Sign In" onPress={() => { signin({ userName, password, setLoading }) }}></Button>
+                </View>
+            }
+        </>
     );
 };
 

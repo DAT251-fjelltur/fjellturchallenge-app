@@ -1,6 +1,6 @@
 
 import createDataContext from './createDataContext';
-import {SERVER_URL} from '../services/utils';
+import { SERVER_URL } from '../services/utils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const authReducer = (state, action) => {
     switch (action.type) {
@@ -18,7 +18,7 @@ const authReducer = (state, action) => {
 };
 
 const signup = dispatch => {
-    return ({ userName, password, navigation }) => {
+    return ({ userName, password, navigation, setLoading }) => {
         let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -33,7 +33,7 @@ const signup = dispatch => {
             body: raw,
             redirect: 'follow'
         };
-
+        setLoading(true)
         fetch(SERVER_URL + "/api/v1/accounts/register", requestOptions)
             .then(result => {
                 if (result.status === 200) {
@@ -41,14 +41,19 @@ const signup = dispatch => {
                     console.log("TIKTOK: ", result.json()['jwt']);
                     navigation.navigate("Sign In")
                 }
+                setLoading(false)
             })
-            .catch(error => console.log('error', error));
+            .catch(error => {
+                setLoading(false)
+                console.log('error', error)
+            });
     };
 };
 
+
+
 const signin = dispatch => {
-    return ({ userName, password }) => {
-        // Do some API Request here
+    return ({ userName, password, setLoading }) => {
         console.log('signing in...');
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -65,6 +70,7 @@ const signin = dispatch => {
         };
 
         console.log(SERVER_URL + "/api/v1/accounts/login");
+        setLoading(true)
         fetch(SERVER_URL + "/api/v1/accounts/login", requestOptions)
             .then(response => {
                 console.log(response.status);
@@ -74,7 +80,7 @@ const signin = dispatch => {
                 return response.json()
             })
             .then(resultJson => {
-            AsyncStorage.setItem('@jwt', resultJson['jwt'])
+                AsyncStorage.setItem('@jwt', resultJson['jwt'])
                 dispatch({
                     type: 'signin',
                     payload: {
@@ -82,8 +88,12 @@ const signin = dispatch => {
                         userName: userName,
                     },
                 });
+                setLoading(false)
             })
-            .catch(error => console.log('error ', error));
+            .catch(error => {
+                setLoading(false)
+                console.log('error ', error)
+            });
 
     };
 };
