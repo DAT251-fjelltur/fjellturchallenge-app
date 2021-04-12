@@ -8,13 +8,17 @@
 
 import React, { useEffect, useState, useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
+
+
 import {
   StyleSheet,
   View,
   Text,
   TextInput,
-  ActivityIndicator
+  ActivityIndicator,
+  Button
 } from 'react-native';
 
 import SignUp from "./app/views/SignUp"
@@ -25,32 +29,59 @@ import AfterActivity from "./app/views/AfterActivity"
 import { Provider as AuthProvider } from './app/context/AuthContext.js';
 import { Context as AuthContext } from './app/context/AuthContext';
 import Loading from './app/components/Loading'
+import { color } from 'react-native-reanimated';
 
+const Drawer = createDrawerNavigator()
 const Stack = createStackNavigator()
 
+function TripStack() {
+  return (
+    <Stack.Navigator screenOptions={{
+      headerShown: false}} >
+      <Stack.Screen name="Trip" component={trip} />
+      <Stack.Screen name="After Activity" component={AfterActivity} />
+    </Stack.Navigator>
+  )
+}
 
 function App() {
   const { state } = useContext(AuthContext);
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Drawer.Navigator drawerStyle={{
+        backgroundColor: "#FFC24B", color: "white"
+      }} 
+        drawerContentOptions={{
+          activeTintColor: "white",
+          inactiveTintColor: "white"
+      }}
+      screenOptions={{
+        headerShown: true,
+        headerStyle: {
+          backgroundColor: "#FFC24B",
+          color: "white"
+        },
+        headerTintColor: "white"
+      }}
+      >
         {state.token === null ?
           <>
-            <Stack.Screen name="Sign Up" component={SignUp} />
-            <Stack.Screen name="Sign In" component={SignIn} />
+            <Drawer.Screen name="Sign Up" component={SignUp} />
+            <Drawer.Screen name="Sign In" component={SignIn} />
           </>
           :
           <>
-            <Stack.Screen name="Home Screen" component={HomeScreen} />
-            <Stack.Screen name="Trip" component={trip} />
-            <Stack.Screen name="After Activity" component={AfterActivity} />
+            <Drawer.Screen name="Home Screen" component={HomeScreen} />
+            <Drawer.Screen name="Trip" component={TripStack} />
           </>
         }
-      </Stack.Navigator>
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 };
+
+
 
 export default () => {
   return (
