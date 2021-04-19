@@ -134,20 +134,23 @@ export function getInfo(cur) {
 export function updateLocation(lat, long) {
   let myHeaders = new Headers();
   return getToken().then((token) => {
-    Geolocation.getCurrentPosition(info => console.log(info));
-    //after token is read from storage, send request
-    myHeaders.append("Authorization", "Bearer " + token);
-    var raw = "{\n    \"latitude\": "+lat+",\n    \"longitude\": "+long+",\n    \"accuracy\": 0.0\n}";
+    var info = Geolocation.getCurrentPosition(info => {
+      console.log(info); 
+      //after token is read from storage, send request
+      myHeaders.append("Authorization", "Bearer " + token);
+      var raw = "{\n    \"latitude\": "+lat+",\n    \"longitude\": "+long+",\n    \"accuracy\": 0.0\n}";
+  
+      var requestOptions = {
+        method: 'PUT',
+        body: raw,
+        redirect: 'follow'
+      };
+  
+      fetch(SERVER_URL+"/api/v1/trip/update", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log('update request result:\n',result))
+        .catch(error => console.log('error sending update request', error));
+    })
+  });
 
-    var requestOptions = {
-      method: 'PUT',
-      body: raw,
-      redirect: 'follow'
-    };
-
-    fetch(SERVER_URL+"/api/v1/trip/update", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error sending update request', error));
-  })
 }
