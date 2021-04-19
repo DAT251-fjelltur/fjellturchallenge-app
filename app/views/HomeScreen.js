@@ -7,7 +7,7 @@ import {
 import React, { Component } from 'react';
 import { useState, useEffect, useContext } from "react/cjs/react.development";
 import { me } from '../services/account';
-import { current } from '../services/activity';
+import { current } from '../services/trip';
 import {Context as AuthContext} from '../context/AuthContext'
 
 

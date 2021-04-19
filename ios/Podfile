@@ -8,6 +8,8 @@ target 'fjellturchallange' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
   target 'fjellturchallangeTests' do
     inherit! :complete
     # Pods for testing

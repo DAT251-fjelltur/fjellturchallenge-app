@@ -7,8 +7,8 @@ import {
     TextInput,
     Button
 } from 'react-native';
-import { endActivity } from '../services/activity';
-import { current } from '../services/activity';
+import { endActivity } from '../services/trip';
+import { current } from '../services/trip';
 
 
 
