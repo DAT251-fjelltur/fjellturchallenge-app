@@ -29,6 +29,7 @@ import AfterActivity from "./app/views/AfterActivity"
 import { Provider as AuthProvider } from './app/context/AuthContext.js';
 import { Context as AuthContext } from './app/context/AuthContext';
 import Loading from './app/components/Loading'
+import Leaderboard from './app/views/Leaderboard';
 //import { color } from 'react-native-reanimated';
 
 const Drawer = createDrawerNavigator()
@@ -74,6 +75,8 @@ function App() {
           <>
             <Drawer.Screen name="Home Screen" component={HomeScreen} />
             <Drawer.Screen name="Trip" component={TripStack} />
+            <Drawer.Screen name="Leaderboard" component={Leaderboard} />
+
           </>
         }
       </Drawer.Navigator>

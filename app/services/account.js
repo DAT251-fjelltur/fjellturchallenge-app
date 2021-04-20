@@ -1,6 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useContext } from 'react';
 import { useState } from 'react/cjs/react.development';
-import {SERVER_URL, getToken} from '../services/utils';
+import { SERVER_URL, getToken } from '../services/utils';
+import { Context as AuthContext } from '../context/AuthContext'
 
 /**
  * send a 'me' request
@@ -8,20 +10,20 @@ import {SERVER_URL, getToken} from '../services/utils';
  */
 export function me() {
     var myHeaders = new Headers();
-    return getToken().then((token)=>{
+    return getToken().then((token) => {
         //after token is read from storage, send request
-        myHeaders.append("Authorization", "Bearer "+token);
-    
+        myHeaders.append("Authorization", "Bearer " + token);
+
         var requestOptions = {
             method: 'GET',
             headers: myHeaders,
             redirect: 'follow'
         };
-    
-        var result = fetch(SERVER_URL+"/api/v1/accounts/me", requestOptions)
+
+        var result = fetch(SERVER_URL + "/api/v1/accounts/me", requestOptions)
             .then(response => response.json())
             .then(result => {
-                console.log(result); 
+                console.log(result);
                 return result;
             })
             .catch(error => console.log('error sending me request', error));
@@ -49,8 +51,8 @@ export function signInUser(username, password, setLoggedIn) {
         redirect: 'follow'
     };
 
-    console.log(SERVER_URL+"/api/v1/accounts/login");
-    fetch(SERVER_URL+"/api/v1/accounts/login", requestOptions)
+    console.log(SERVER_URL + "/api/v1/accounts/login");
+    fetch(SERVER_URL + "/api/v1/accounts/login", requestOptions)
         .then(response => {
             console.log(response.status);
             if (response.status !== 200) {
@@ -86,7 +88,7 @@ export function createUser(username, password) {
         redirect: 'follow'
     };
 
-    fetch(SERVER_URL+"/api/v1/accounts/register", requestOptions)
+    fetch(SERVER_URL + "/api/v1/accounts/register", requestOptions)
         .then(result => {
             if (result.status === 200) {
                 console.log('Success')
@@ -94,4 +96,29 @@ export function createUser(username, password) {
             }
         })
         .catch(error => console.log('error', error));
+}
+ 
+export function getLeaderboard({ setLoading, setLeaderboard, tok }) {
+    //const { state } = useContext(AuthContext)
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + tok);
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    setLoading(true)
+
+    fetch(SERVER_URL + "/api/v1/accounts/list", requestOptions)
+        .then(res => res.json())
+        .then(res => {
+            setLeaderboard(res['content'])
+            setLoading(false)
+        })
+        .catch(error => {
+            setLoading(false)
+            console.log('error', error)
+        });
+
 }
