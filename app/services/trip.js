@@ -131,26 +131,60 @@ export function getInfo(cur) {
 /**
  * update location with current corrdinates
  */
-export function updateLocation(lat, long) {
+export async function updateLocation(lat, long) {
+  let myHeaders = new Headers();
+  const token = await getToken();
+  Geolocation.getCurrentPosition(info => {
+    console.log(info);
+    //after token is read from storage, send request
+    myHeaders.append("Authorization", "Bearer " + token);
+    myHeaders.append("Content-Type", "application/json");
+    var lat_1 = info.coords.latitude;
+    var long_1 = info.coords.longitude;
+
+    var raw = '{\n    "latitude": ' + lat_1 + ',  "longitude": ' + long_1 + ',  "accuracy": 0.0}';
+
+    var requestOptions = {
+      method: 'PUT',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch(SERVER_URL + "/api/v1/trip/update", requestOptions)
+      .then(response => response.text())
+      .then(result_2 => console.log('update request result:\n', result_2))
+      .catch(error => console.log('error sending update request', error));
+  });
+
+}
+/**
+ * get duration of a trip
+  * @returns 0 if tripID is null
+ */
+export function getDuration(tripID) {
+  if (tripID == null) {
+    return "0";
+  }
   let myHeaders = new Headers();
   return getToken().then((token) => {
-    var info = Geolocation.getCurrentPosition(info => {
-      console.log(info); 
-      //after token is read from storage, send request
-      myHeaders.append("Authorization", "Bearer " + token);
-      var raw = "{\n    \"latitude\": "+lat+",\n    \"longitude\": "+long+",\n    \"accuracy\": 0.0\n}";
-  
-      var requestOptions = {
-        method: 'PUT',
-        body: raw,
-        redirect: 'follow'
-      };
-  
-      fetch(SERVER_URL+"/api/v1/trip/update", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log('update request result:\n',result))
-        .catch(error => console.log('error sending update request', error));
-    })
-  });
+    //after token is read from storage, send request
+    myHeaders.append("Authorization", "Bearer " + token);
+    myHeaders.append("Content-Type", "application/json");
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow',
+      headers: myHeaders
+    };
+
+    var result = fetch(SERVER_URL + "/api/v1/trip/" + tripID + "/duration", requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        var json = JSON.parse(result);
+        return json['seconds'];
+      })
+      .catch(error => console.log('error', error));
+    return result;
+  })
 
 }
