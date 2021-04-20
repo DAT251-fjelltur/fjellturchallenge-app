@@ -159,6 +159,36 @@ export async function updateLocation(lat, long) {
 
 }
 /**
+ * Not yet implemented
+  * @returns 0 if tripID is null
+ */
+export function getDistance(tripID) {
+  if (tripID == null) {
+    return "0";
+  }
+  let myHeaders = new Headers();
+  return getToken().then((token) => {
+    //after token is read from storage, send request
+    myHeaders.append("Authorization", "Bearer " + token);
+    myHeaders.append("Content-Type", "application/json");
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow',
+      headers: myHeaders
+    };
+
+    var result = fetch(SERVER_URL + "/api/v1/trip/" + tripID + "/distance", requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        var json = JSON.parse(result);
+        return json['seconds'];
+      })
+      .catch(error => console.log('error', error));
+    return result;
+  })
+
+}
+/**
  * get duration of a trip
   * @returns 0 if tripID is null
  */
