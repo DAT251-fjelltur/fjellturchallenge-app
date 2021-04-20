@@ -29,7 +29,7 @@ import AfterActivity from "./app/views/AfterActivity"
 import { Provider as AuthProvider } from './app/context/AuthContext.js';
 import { Context as AuthContext } from './app/context/AuthContext';
 import Loading from './app/components/Loading'
-import { color } from 'react-native-reanimated';
+//import { color } from 'react-native-reanimated';
 
 const Drawer = createDrawerNavigator()
 const Stack = createStackNavigator()

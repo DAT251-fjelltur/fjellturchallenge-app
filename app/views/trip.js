@@ -6,8 +6,8 @@ import {
     TextInput,
     Button
 } from 'react-native';
-import { startActivity, endActivity } from '../services/activity';
-import { current } from '../services/activity';
+import { startActivity, endActivity } from '../services/trip';
+import { current, updateLocation } from '../services/trip';
 
 
 
@@ -62,6 +62,7 @@ function StartActivity({ navigation }) {
                 { activityID !== null ? <Button title="end trip" onPress={() => end()}></Button> :
                     <Text>LOADING</Text>
                 }
+                <Button title="send coor" onPress={()=> updateLocation()} />
             </View>
         );
     }
