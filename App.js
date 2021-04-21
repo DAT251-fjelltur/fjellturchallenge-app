@@ -25,7 +25,7 @@ import SignUp from "./app/views/SignUp"
 import trip from './app/views/trip'
 import SignIn from "./app/views/SignIn"
 import HomeScreen from "./app/views/HomeScreen"
-import AfterActivity from "./app/views/AfterActivity"
+import AfterTrip from "./app/views/AfterTrip"
 import { Provider as AuthProvider } from './app/context/AuthContext.js';
 import { Context as AuthContext } from './app/context/AuthContext';
 import Loading from './app/components/Loading'
@@ -40,7 +40,7 @@ function TripStack() {
     <Stack.Navigator screenOptions={{
       headerShown: false}} >
       <Stack.Screen name="Trip" component={trip} />
-      <Stack.Screen name="After Activity" component={AfterActivity} />
+      <Stack.Screen name="After Trip" component={AfterTrip} />
     </Stack.Navigator>
   )
 }
