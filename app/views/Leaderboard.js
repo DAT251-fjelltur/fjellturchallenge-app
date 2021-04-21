@@ -26,7 +26,7 @@ function Leaderboard() {
 
     function sortedLeaderboard(user, i) {
         return (
-            <Card containerStyle={{ margin: 0 }}>
+            <Card key={i} containerStyle={{ margin: 0 }}>
                 <View style={{ flexDirection: 'row', display: 'flex', justifyContent: 'center' }}>
                     <View style={{ flex: 0.5, alignItems: 'center', justifyContent: 'center' }}>
                         <Text>{i + 1}.</Text>
@@ -37,7 +37,7 @@ function Leaderboard() {
                                 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
                         }} />
                     </View>
-                    <View style={{ flex: 5, justifyContent: 'center' }} key={user['id']}>
+                    <View style={{ flex: 5, justifyContent: 'center' }} >
                         <Text>{user['username']}</Text>
                     </View>
                     <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
