@@ -97,11 +97,11 @@ export function createUser(username, password) {
         })
         .catch(error => console.log('error', error));
 }
- 
+
 export function getLeaderboard({ setLoading, setLeaderboard, tok }) {
     //const { state } = useContext(AuthContext)
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer " + tok);
+    myHeaders.append("Authorization", "Bearer " );
     var requestOptions = {
         method: 'GET',
         headers: myHeaders,
@@ -111,7 +111,11 @@ export function getLeaderboard({ setLoading, setLeaderboard, tok }) {
     setLoading(true)
 
     fetch(SERVER_URL + "/api/v1/accounts/list?sort=score", requestOptions)
-        .then(res => res.json())
+        .then(res => {
+            if (res.status >= 300)
+                throw new Error('HTTP response status not code 200 as expected.');
+            return res.json()
+        })
         .then(res => {
             setLeaderboard(res['content'])
             setLoading(false)
