@@ -22,6 +22,7 @@ function StartActivity({ navigation }) {
         const interval = setInterval(() => {
             if (tripID != null){
                 console.log('send repeating request');
+                //updateLocation();     //Er det en grunn til at vi ikke gjør dette?
                 var duration = getDuration(tripID).then(value =>{
                     setDuration(value);
                 });
@@ -39,6 +40,18 @@ function StartActivity({ navigation }) {
             console.log('trip id: ', tripID); //.substring(0,8));
         })
     }, [])
+
+    /**
+     * convert seconds to h and min
+     */
+    function convertSeconds(s) {
+        var h = Math.floor(s/3600);
+        var s = s%36000;
+        var min = Math.floor(s/60);
+        var s = s&60;
+        return h+"h, "+min+"min and "+s+"s";
+    }
+
     /**
      * end a ongoing trip and move to post trip view
      */
@@ -79,7 +92,7 @@ function StartActivity({ navigation }) {
                     <Text>LOADING</Text>
                 }
                 <Button title="send coor" onPress={() => updateLocation()} />
-                <Text>Duration: {duration}s</Text>
+                <Text>Duration: {convertSeconds(duration)}</Text>
             </View>
         );
     }
