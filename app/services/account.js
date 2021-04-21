@@ -110,7 +110,7 @@ export function getLeaderboard({ setLoading, setLeaderboard, tok }) {
 
     setLoading(true)
 
-    fetch(SERVER_URL + "/api/v1/accounts/list", requestOptions)
+    fetch(SERVER_URL + "/api/v1/accounts/list?sort=score", requestOptions)
         .then(res => res.json())
         .then(res => {
             setLeaderboard(res['content'])
