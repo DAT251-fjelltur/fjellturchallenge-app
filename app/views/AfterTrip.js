@@ -12,14 +12,14 @@ import { current } from '../services/trip';
 
 
 
-function AfterActivity({ route, navigation }) {
-    //get activity id from previous page
-    const { activity } = route.params;
-    console.log(activity);
+function AfterTrip({ route, navigation }) {
+    //get trip id from previous page
+    const { trip } = route.params;
+    console.log(trip);
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Activity is finished, id {activity}</Text>
+            <Text>Trip is finished, id {trip}</Text>
             <Button title="go to home" onPress={() => {
                 navigation.pop()
                 navigation.navigate('Home Screen')
@@ -28,4 +28,4 @@ function AfterActivity({ route, navigation }) {
     );
 };
 
-export default AfterActivity
+export default AfterTrip
