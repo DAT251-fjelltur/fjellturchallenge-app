@@ -101,7 +101,7 @@ export function createUser(username, password) {
 export function getLeaderboard({ setLoading, setLeaderboard, tok }) {
     //const { state } = useContext(AuthContext)
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer " );
+    myHeaders.append("Authorization", "Bearer " + tok);
     var requestOptions = {
         method: 'GET',
         headers: myHeaders,
