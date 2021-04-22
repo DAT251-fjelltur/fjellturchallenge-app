@@ -29,7 +29,7 @@ function Leaderboard() {
             <Card key={i} containerStyle={{ margin: 0 }}>
                 <View style={{ flexDirection: 'row', display: 'flex', justifyContent: 'center' }}>
                     <View style={{ flex: 0.5, alignItems: 'center', justifyContent: 'center' }}>
-                        <Text>{i + 1}.</Text>
+                        <Text style={{ fontWeight: 'bold' }}>{i + 1}.</Text>
                     </View>
                     <View style={{ flex: 1, alignItems: 'center' }}>
                         <Avatar rounded source={{
@@ -86,6 +86,8 @@ function Leaderboard() {
                             <RefreshControl
                                 refreshing={isLoading}
                                 onRefresh={onRefresh}
+                                progressBackgroundColor="#FFC24B"
+                                colors={['white']}
                             />
                         }>
                             {leaderboard.map((user, i) => {
