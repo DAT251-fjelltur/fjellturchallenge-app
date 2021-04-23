@@ -10,6 +10,7 @@ import {
 import { startActivity, endActivity } from '../services/trip';
 import { current, updateLocation, getDuration } from '../services/trip';
 import MapView from 'react-native-maps';
+import Marker from 'react-native-map';
 
 const styles = StyleSheet.create({
     container: {
@@ -28,18 +29,13 @@ function StartActivity({ navigation }) {
 
     const [tripID, setTripID] = useState(null);
     const [duration, setDuration] = useState("");
+    const [markers, setMarker] = useState([]);
 
-    //repeating API call to update trip info
+    //function to run every 5s
     const MINUTE_MS = 5000;
     useEffect(() => {
         const interval = setInterval(() => {
-            if (tripID != null) {
-                console.log('send repeating request');
-                updateLocation();     //Er det en grunn til at vi ikke gjør dette?
-                var duration = getDuration(tripID).then(value => {
-                    setDuration(value);
-                });
-            }
+            update();
         }, MINUTE_MS);
         return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
     }, [tripID])
@@ -50,13 +46,26 @@ function StartActivity({ navigation }) {
             console.log('checks if trip is ongoing...');
             setTripID(json["tripId"]);
             console.log('current trip ongoing: ', json['ongoing']);
-            console.log('trip id: ', tripID); //.substring(0,8));
+            console.log('trip id: ', tripID); //
         })
     }, [])
 
     /**
+     * send frequent requests to update position and update trip info
+     */
+    function update() {
+        if (tripID != null) {
+            console.log('send repeating request');
+            updateLocation();
+            getDuration(tripID).then(value => {
+                setDuration(value);
+            });
+        }
+    }
+    /**
      * convert seconds to h and min
      * TODO: flytt til utils eller noe
+     * TODO: bug: kan vise mer enn 60 på minutter
      */
     function convertSeconds(s) {
         var h = Math.floor(s / 3600);
@@ -73,9 +82,9 @@ function StartActivity({ navigation }) {
         if (!tripID) {
             console.error('No trip to end!');
         } else {
-            console.log('Ending activity ' + tripID); //.substring(0,8));
+            console.log('Ending activity ' + tripID.substring(0, 6));
             endActivity(tripID, 0, 0, 0);
-            //TODO: potential error in ending activity
+            //TODO: handle potential error in ending activity
             setTripID(null);
             setDuration(0);
             navigation.navigate("After Trip", { id: tripID })
@@ -106,12 +115,21 @@ function StartActivity({ navigation }) {
                     <MapView
                         style={styles.map}
                         initialRegion={{
-                            latitude: 37.78825,
-                            longitude: -122.4324,
+                            latitude: 60.3913,
+                            longitude: 5.3221,
                             latitudeDelta: 0.0922,
                             longitudeDelta: 0.0421,
                         }}
-                    />
+                    >
+                        {markers.map((marker, index) => (
+                            <Marker
+                                key={index}
+                                coordinate={marker.latlng}
+                                title={marker.title}
+                                description={marker.description}
+                            />
+                        ))}
+                    </MapView>
                 </View>
 
 
@@ -120,7 +138,6 @@ function StartActivity({ navigation }) {
                 { tripID !== null ? <Button title="end trip" onPress={() => end()}></Button> :
                     <Text>LOADING</Text>
                 }
-                <Button title="send coor" onPress={() => updateLocation()} />
                 <Text>Duration: {convertSeconds(duration)}</Text>
             </View>
         );
