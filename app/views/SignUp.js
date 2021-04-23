@@ -17,6 +17,7 @@ function SignUp({ navigation }) {
     const [password, setPassword] = useState("")
     const { state, signup } = useContext(AuthContext);
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
 
     return (
         <>
@@ -28,7 +29,10 @@ function SignUp({ navigation }) {
                     <TextInput placeholder="Username" onChangeText={user => setUsername(user)}></TextInput>
                     <Text>Password</Text>
                     <TextInput secureTextEntry={true} placeholder="Password" onChangeText={pass => setPassword(pass)} ></TextInput>
-                    <Button title="REGISTER" onPress={() => { signup({ userName, password, navigation, setLoading }) }}></Button>
+                    <View style={{marginBottom: 10}}>
+                        {error && <Text style={{ color: "red" }}>{error}</Text>}
+                    </View>
+                    <Button title="REGISTER" onPress={() => { signup({ userName, password, navigation, setLoading, setError }) }}></Button>
                     <Text>Already have an account? </Text>
                     <Text onPress={() => navigation.navigate("Sign In")}>Sign in here</Text>
                 </View>
