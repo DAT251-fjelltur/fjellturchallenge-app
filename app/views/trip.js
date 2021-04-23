@@ -5,12 +5,14 @@ import {
     View,
     Text,
     TextInput,
-    Button
+    Button,
+    TouchableOpacity
 } from 'react-native';
 import { startActivity, endActivity } from '../services/trip';
 import { current, updateLocation, getDuration } from '../services/trip';
 import MapView from 'react-native-maps';
 import Marker from 'react-native-map';
+import { button } from '../assets/styles'
 
 const styles = StyleSheet.create({
     container: {
@@ -135,7 +137,10 @@ function StartActivity({ navigation }) {
 
 
                 <Text>Trip is in progess</Text>
-                { tripID !== null ? <Button title="end trip" onPress={() => end()}></Button> :
+                { tripID !== null ?
+                    <TouchableOpacity style={button.primaryButton} onPress={() => end()} >
+                        <Text >End trip</Text>
+                    </TouchableOpacity> :
                     <Text>LOADING</Text>
                 }
                 <Text>Duration: {convertSeconds(duration)}</Text>
@@ -147,7 +152,9 @@ function StartActivity({ navigation }) {
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <Text>Here you can start your activity</Text>
-                <Button title="start trip" onPress={() => start()}></Button>
+                <TouchableOpacity style={button.primaryButton} onPress={() => start()} >
+                    <Text >Start trip</Text>
+                </TouchableOpacity>
             </View>
         );
     }

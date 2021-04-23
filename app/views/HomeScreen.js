@@ -2,21 +2,23 @@ import {
     StyleSheet,
     View,
     Text,
-    Button
+    Button,
+    TouchableOpacity
 } from 'react-native';
 import React, { Component } from 'react';
 import { useState, useEffect, useContext } from "react/cjs/react.development";
 import { me } from '../services/account';
 import { current } from '../services/trip';
-import {Context as AuthContext} from '../context/AuthContext'
+import { Context as AuthContext } from '../context/AuthContext'
+import { button } from '../assets/styles'
 
 
 function HomeScreen({ navigation }) {
-    const {state, signout} = useContext(AuthContext);
+    const { state, signout } = useContext(AuthContext);
     const [activityID, setActivityID] = useState("");
 
 
-    useEffect(()=>{
+    useEffect(() => {
         current().then(json => {
             //after user info is fetched, update page
             setActivityID(json["tripId"]);
@@ -30,7 +32,7 @@ function HomeScreen({ navigation }) {
     function startActivity() {
         navigation.navigate('Trip')
         return;
-        if (activityID !== null){
+        if (activityID !== null) {
             //console.log('An activity is already in progress');
             navigation.navigate("During Activity");
         } else {
@@ -43,8 +45,12 @@ function HomeScreen({ navigation }) {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text>logged in as {state.userName}</Text>
-            <Button title="start new or continue trip" onPress={() => startActivity()}></Button>
-            <Button title="LOG OUT" onPress={() => signout()}></Button>
+            <TouchableOpacity style={button.secondaryButton} onPress={() => startActivity()} >
+                <Text >Start new or continue trip</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={button.primaryButton} onPress={() => signout()} >
+                <Text >LOG OUT</Text>
+            </TouchableOpacity>
         </View>
     )
 }

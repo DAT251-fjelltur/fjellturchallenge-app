@@ -5,10 +5,12 @@ import {
     View,
     Text,
     TextInput,
-    Button
+    Button,
+    TouchableOpacity,
 } from 'react-native';
 import { endActivity } from '../services/trip';
 import { current } from '../services/trip';
+import { button } from '../assets/styles'
 
 
 
@@ -20,10 +22,12 @@ function AfterTrip({ route, navigation }) {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text>Trip is finished, id {trip}</Text>
-            <Button title="go to home" onPress={() => {
+            <TouchableOpacity style={button.primaryButton} onPress={() => {
                 navigation.pop()
                 navigation.navigate('Home Screen')
-            }}></Button>
+            }} >
+                <Text >Go to Home</Text>
+            </TouchableOpacity>
         </View>
     );
 };

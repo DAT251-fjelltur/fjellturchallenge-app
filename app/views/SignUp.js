@@ -5,11 +5,13 @@ import {
     Text,
     TextInput,
     Button,
-    ActivityIndicator
+    ActivityIndicator,
+    TouchableOpacity
 } from 'react-native';
 import { useEffect } from 'react/cjs/react.development';
 import { Context as AuthContext } from '../context/AuthContext'
 import Loading from '../components/Loading'
+import { button } from '../assets/styles'
 
 
 function SignUp({ navigation }) {
@@ -32,7 +34,9 @@ function SignUp({ navigation }) {
                     <View style={{marginBottom: 10}}>
                         {error && <Text style={{ color: "red" }}>{error}</Text>}
                     </View>
-                    <Button title="REGISTER" onPress={() => { signup({ userName, password, navigation, setLoading, setError }) }}></Button>
+                    <TouchableOpacity style={button.primaryButton} onPress={() => { signup({ userName, password, navigation, setLoading, setError }) }} >
+                        <Text >Register</Text>
+                    </TouchableOpacity>
                     <Text>Already have an account? </Text>
                     <Text onPress={() => navigation.navigate("Sign In")}>Sign in here</Text>
                 </View>
