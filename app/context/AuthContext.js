@@ -53,7 +53,7 @@ const signup = dispatch => {
 
 
 const signin = dispatch => {
-    return ({ userName, password, setLoading }) => {
+    return ({ userName, password, setLoading, setError }) => {
         console.log('signing in...');
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -91,6 +91,7 @@ const signin = dispatch => {
                 setLoading(false)
             })
             .catch(error => {
+                setError("Incorrect username or password")
                 setLoading(false)
                 console.log('error ', error)
             });

@@ -20,6 +20,7 @@ function SignIn({ navigation }) {
     const [password, setPassword] = useState("");
     const { state, signin } = useContext(AuthContext);
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
 
     /**
      * Send request to sign in user and move to homescreen if login is successful
@@ -37,7 +38,10 @@ function SignIn({ navigation }) {
                     <TextInput placeholder="Username" onChangeText={setUsername}></TextInput>
                     <Text>Password</Text>
                     <TextInput secureTextEntry={true} placeholder="Password" onChangeText={setPassword} ></TextInput>
-                    <Button title="Sign In" onPress={() => { signin({ userName, password, setLoading }) }}></Button>
+                    <View style={{marginBottom: 10}}>
+                        {error && <Text style={{ color: "red" }}>{error}</Text>}
+                    </View>
+                    <Button title="Sign In" onPress={() => { signin({ userName, password, setLoading, setError }) }}></Button>
                 </View>
             }
         </>
