@@ -68,8 +68,8 @@ function App() {
       >
         {state.token === null ?
           <>
-            <Drawer.Screen name="Sign Up" component={SignUp} />
             <Drawer.Screen name="Sign In" component={SignIn} />
+            <Drawer.Screen name="Sign Up" component={SignUp} />
           </>
           :
           <>
