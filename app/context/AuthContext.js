@@ -18,7 +18,7 @@ const authReducer = (state, action) => {
 };
 
 const signup = dispatch => {
-    return ({ userName, password, navigation, setLoading }) => {
+    return ({ userName, password, navigation, setLoading, setError }) => {
         let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -41,10 +41,14 @@ const signup = dispatch => {
                     console.log("TIKTOK: ", result.json()['jwt']);
                     navigation.navigate("Sign In")
                 }
+                else {
+                    throw new Error('Failed to register user');
+                }
                 setLoading(false)
             })
             .catch(error => {
                 setLoading(false)
+                setError('Failed to register user')
                 console.log('error', error)
             });
     };
@@ -53,7 +57,7 @@ const signup = dispatch => {
 
 
 const signin = dispatch => {
-    return ({ userName, password, setLoading }) => {
+    return ({ userName, password, setLoading, setError }) => {
         console.log('signing in...');
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -91,6 +95,7 @@ const signin = dispatch => {
                 setLoading(false)
             })
             .catch(error => {
+                setError("Incorrect username or password")
                 setLoading(false)
                 console.log('error ', error)
             });
