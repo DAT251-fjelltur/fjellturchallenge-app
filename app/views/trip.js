@@ -8,7 +8,7 @@ import {
     Button
 } from 'react-native';
 import { startActivity, endActivity } from '../services/trip';
-import { current, updateLocation, getDuration } from '../services/trip';
+import { current, updateLocation, getDistance, getDuration } from '../services/trip';
 import MapView from 'react-native-maps';
 import Marker from 'react-native-map';
 
@@ -29,6 +29,7 @@ function StartActivity({ navigation }) {
 
     const [tripID, setTripID] = useState(null);
     const [duration, setDuration] = useState("");
+    const [distance, setDistance] = useState("");
     const [markers, setMarker] = useState([]);
 
     //function to run every 5s
@@ -57,6 +58,9 @@ function StartActivity({ navigation }) {
         if (tripID != null) {
             console.log('send repeating request');
             updateLocation();
+            getDistance(tripID).then(value => {
+                setDistance(value);
+            });
             getDuration(tripID).then(value => {
                 setDuration(value);
             });
@@ -87,6 +91,7 @@ function StartActivity({ navigation }) {
             //TODO: handle potential error in ending activity
             setTripID(null);
             setDuration(0);
+            setDistance(0);
             navigation.navigate("After Trip", { id: tripID })
         }
 
@@ -139,6 +144,7 @@ function StartActivity({ navigation }) {
                     <Text>LOADING</Text>
                 }
                 <Text>Duration: {convertSeconds(duration)}</Text>
+                <Text>Distance: {distance}</Text>
             </View>
         );
     }

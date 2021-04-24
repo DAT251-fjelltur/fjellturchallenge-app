@@ -153,13 +153,13 @@ export async function updateLocation(lat, long) {
 
     fetch(SERVER_URL + "/api/v1/trip/update", requestOptions)
       .then(response => response.text())
-      .then(result_2 => console.log('update request result:\n', result_2))
+      .then(result_2 => {})
       .catch(error => console.log('error sending update request', error));
   });
 
 }
 /**
- * Not yet implemented
+ * 
   * @returns 0 if tripID is null
  */
 export function getDistance(tripID) {
@@ -181,7 +181,7 @@ export function getDistance(tripID) {
       .then(response => response.text())
       .then(result => {
         var json = JSON.parse(result);
-        return json['seconds'];
+        return json['meters'];
       })
       .catch(error => console.log('error', error));
     return result;
