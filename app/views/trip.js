@@ -10,10 +10,9 @@ import {
 } from 'react-native';
 import { startActivity, endActivity } from '../services/trip';
 import { current, updateLocation, getDistance, getDuration } from '../services/trip';
-import { convertSeconds } from '../services/utils';
-import MapView from 'react-native-maps';
-import Marker from 'react-native-map';
+import MapView, { Polyline, Marker, Polygon } from 'react-native-maps';
 import { button } from '../assets/styles'
+import { convertSeconds } from '../services/utils';
 
 const styles = StyleSheet.create({
     container: {
@@ -33,7 +32,7 @@ function StartActivity({ navigation }) {
     const [tripID, setTripID] = useState(null);
     const [duration, setDuration] = useState("");
     const [distance, setDistance] = useState("");
-    const [markers, setMarker] = useState([]);
+    const [markers, setMarkers] = useState([]);
 
     //function to run every 5s
     const MINUTE_MS = 10000;
@@ -48,10 +47,10 @@ function StartActivity({ navigation }) {
     useEffect(() => {
         current().then(json => {
             //after user info is fetched, update page
-            console.log('checks if trip is ongoing...');
+            // console.log('checks if trip is ongoing...');
             setTripID(json["tripId"]);
             console.log('current trip ongoing: ', json['ongoing']);
-            console.log('trip id: ', tripID); //
+            // console.log('trip id: ', tripID.substring(0,6)); //
         })
     }, [])
 
@@ -68,6 +67,21 @@ function StartActivity({ navigation }) {
             getDuration(tripID).then(value => {
                 setDuration(value);
             });
+            //update the map markers
+            current().then(json => {
+                console.log('updates markers');
+                locationsinfo = json['locations'];
+                longlat = []
+                locationsinfo.forEach(info => {
+                    pos = { longitude: info['longitude'], latitude: info['latitude'] };
+                    longlat.push(pos)
+                });
+                longlat.shift();
+                console.log('recieved coors:', longlat);
+                setMarkers(longlat);
+                // setMarkers(markers.concat(longlat));
+            })
+
         }
     }
     
@@ -113,20 +127,21 @@ function StartActivity({ navigation }) {
                     <MapView
                         style={styles.map}
                         initialRegion={{
+                            //TODO sett region automatisk
                             latitude: 60.3913,
                             longitude: 5.3221,
                             latitudeDelta: 0.0922,
                             longitudeDelta: 0.0421,
                         }}
                     >
-                        {markers.map((marker, index) => (
-                            <Marker
-                                key={index}
-                                coordinate={marker.latlng}
-                                title={marker.title}
-                                description={marker.description}
-                            />
-                        ))}
+                        <Polyline
+                            coordinates={
+                                markers
+                            }
+                            strokeColor="#0a0"
+                            strokeWidth={6}
+                        />
+
                     </MapView>
                 </View>
 

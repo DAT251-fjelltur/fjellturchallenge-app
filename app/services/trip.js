@@ -60,7 +60,6 @@ export function current() {
     let result = fetch(SERVER_URL + "/api/v1/trip/current", requestOptions)
       .then(response => response.json())
       .then(result => {
-        //console.log("activity.current result: " + result);
         return result;
       })
       .catch(error => console.log('error sending current request', error));
@@ -134,8 +133,8 @@ export function getInfo(cur) {
 export async function updateLocation(lat, long) {
   let myHeaders = new Headers();
   const token = await getToken();
-  Geolocation.getCurrentPosition(info => {
-    console.log('geolocation curpos:',info['coords']);
+  return Geolocation.getCurrentPosition(info => {
+    console.log('geolocation curpos:', info['coords']);
     myHeaders.append("Authorization", "Bearer " + token);
     myHeaders.append("Content-Type", "application/json");
     var lat_1 = info.coords.latitude;
@@ -152,12 +151,14 @@ export async function updateLocation(lat, long) {
 
     fetch(SERVER_URL + "/api/v1/trip/update", requestOptions)
       .then(response => response.text())
-      .then(result_2 => {})
+      .then(result_2 => { })
       .catch(error => console.log('error sending update request', error));
+
+    return { 'latitude': lat_1, 'longitude': long_1 }
   }, err => {
     console.log(err)
     alert('fetching the position failed')
-  }, {enableHighAccuracy: true, timeout: 20000, maximumAge: 0});
+  }, { enableHighAccuracy: true, timeout: 20000, maximumAge: 0 });
 
 }
 /**
