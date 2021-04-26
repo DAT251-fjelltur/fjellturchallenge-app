@@ -35,7 +35,7 @@ function StartActivity({ navigation }) {
     const [markers, setMarker] = useState([]);
 
     //function to run every 5s
-    const MINUTE_MS = 5000;
+    const MINUTE_MS = 10000;
     useEffect(() => {
         const interval = setInterval(() => {
             update();
@@ -43,6 +43,7 @@ function StartActivity({ navigation }) {
         return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
     }, [tripID])
 
+    //update if trip is ongoing on page load
     useEffect(() => {
         current().then(json => {
             //after user info is fetched, update page
@@ -58,7 +59,7 @@ function StartActivity({ navigation }) {
      */
     function update() {
         if (tripID != null) {
-            console.log('send repeating request');
+            // console.log('send repeating request');
             updateLocation();
             getDistance(tripID).then(value => {
                 setDistance(value);

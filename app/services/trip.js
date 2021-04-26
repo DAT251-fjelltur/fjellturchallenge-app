@@ -135,8 +135,7 @@ export async function updateLocation(lat, long) {
   let myHeaders = new Headers();
   const token = await getToken();
   Geolocation.getCurrentPosition(info => {
-    console.log(info);
-    //after token is read from storage, send request
+    console.log('geolocation curpos:',info['coords']);
     myHeaders.append("Authorization", "Bearer " + token);
     myHeaders.append("Content-Type", "application/json");
     var lat_1 = info.coords.latitude;
@@ -155,7 +154,10 @@ export async function updateLocation(lat, long) {
       .then(response => response.text())
       .then(result_2 => {})
       .catch(error => console.log('error sending update request', error));
-  });
+  }, err => {
+    console.log(err)
+    alert('fetching the position failed')
+  }, {enableHighAccuracy: true, timeout: 20000, maximumAge: 0});
 
 }
 /**
