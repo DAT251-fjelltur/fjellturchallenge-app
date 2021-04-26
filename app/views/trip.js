@@ -8,7 +8,7 @@ import {
     Button,
     TouchableOpacity
 } from 'react-native';
-import { startActivity, endActivity } from '../services/trip';
+import { startTrip, endActivity } from '../services/trip';
 import { current, updateLocation, getDistance, getDuration } from '../services/trip';
 import MapView, { Polyline, Marker, Polygon } from 'react-native-maps';
 import { button } from '../assets/styles'
@@ -35,7 +35,7 @@ function StartActivity({ navigation }) {
     const [markers, setMarkers] = useState([]);
 
     //function to run every 5s
-    const MINUTE_MS = 10000;
+    const MINUTE_MS = 5000;
     useEffect(() => {
         const interval = setInterval(() => {
             update();
@@ -77,7 +77,7 @@ function StartActivity({ navigation }) {
                     pos = { longitude: info['longitude'], latitude: info['latitude'] };
                     longlat.push(pos)
                 });
-                longlat.shift();
+                // longlat.shift(); to remove first buggy pos
                 console.log('recieved coors:', longlat);
                 setMarkers(longlat);
                 // setMarkers(markers.concat(longlat));
@@ -114,11 +114,12 @@ function StartActivity({ navigation }) {
             return;
         }
         console.log('starting a new trip');
-        var json = await startActivity(0, 0, 0)
-        console.log('started a trip with id ', json['id']);
-        //currentJson = await current()
-        //after current activity id is fetched, update page
-        setTripID(json["id"])
+        startTrip(setTripID).then(val => {
+            current().then(json => {
+                //after user info is fetched, update page
+                setTripID(json["tripId"]);
+            });
+        });
     }
 
     if (tripID) {
@@ -144,11 +145,18 @@ function StartActivity({ navigation }) {
 
                         {markers.length > 0 ?
                             <Marker
+                                key={1}
+                                coordinate={markers[markers.length - 1]}
+                            />
+                            :
+                            <View />
+                        }{markers.length > 1 ?
+                            <Marker
                                 key={0}
                                 coordinate={markers[0]}
                             />
                             :
-                            <View/>
+                            <View />
                         }
 
                     </MapView>

@@ -6,40 +6,46 @@ import Geolocation from '@react-native-community/geolocation';
 /**
  * start activity
  */
-export function startActivity(la, lo, ac) {
-  let myHeaders = new Headers();
-  return getToken().then((token) => {
-    //after token is read from storage, send request
-    myHeaders.append("Authorization", "Bearer " + token);
-    myHeaders.append("Content-Type", "application/json");
+export function startTrip(setTripID) {
+  return Geolocation.getCurrentPosition(info => {
+    var lat_1 = info.coords.latitude;
+    var long_1 = info.coords.longitude;
+    let myHeaders = new Headers();
+    return getToken().then((token) => {
+      //after token is read from storage, send request
+      myHeaders.append("Authorization", "Bearer " + token);
+      myHeaders.append("Content-Type", "application/json");
 
-    let raw = JSON.stringify({
-      "latitude": 0.0,
-      "longitude": 0.0,
-      "accuracy": 0.0
-    });
+      let raw = JSON.stringify({
+        "latitude": lat_1,
+        "longitude": long_1,
+        "accuracy": 0.0
+      });
 
-    raw = JSON.stringify({
-      "latitude": 0.0,
-      "longitude": 0.0,
-      "accuracy": 0.0
-    });
-    let requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-    };
+      let requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
 
-    let result = fetch(SERVER_URL + "/api/v1/trip/start", requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        return result;
-      })
-      .catch(error => console.log('error sending start activity request', error));
+      let result = fetch(SERVER_URL + "/api/v1/trip/start", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          console.log('trip started, updates state', result);
+          setTripID(result['id']);
+          return result;
+        })
+        .catch(error => console.log('error sending start activity request', error));
 
-    return result;
-  })
+      return result;
+    })
+  }, err => {
+    console.log(err)
+    alert('fetching the position failed')
+  }, { enableHighAccuracy: true, timeout: 20000, maximumAge: 0 });
+
+
 }
 
 /**
