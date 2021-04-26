@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { startActivity, endActivity } from '../services/trip';
 import { current, updateLocation, getDistance, getDuration } from '../services/trip';
+import { convertSeconds } from '../services/utils';
 import MapView from 'react-native-maps';
 import Marker from 'react-native-map';
 import { button } from '../assets/styles'
@@ -69,18 +70,7 @@ function StartActivity({ navigation }) {
             });
         }
     }
-    /**
-     * convert seconds to h and min
-     * TODO: flytt til utils eller noe
-     * TODO: bug: kan vise mer enn 60 på minutter
-     */
-    function convertSeconds(s) {
-        var h = Math.floor(s / 3600);
-        var s = s % 36000;
-        var min = Math.floor(s / 60);
-        var s = s % 60;
-        return h + "h, " + min + "min and " + s + "s";
-    }
+    
 
     /**
      * end a ongoing trip and move to post trip view
@@ -95,7 +85,7 @@ function StartActivity({ navigation }) {
             setTripID(null);
             setDuration(0);
             setDistance(0);
-            navigation.navigate("After Trip", { id: tripID })
+            navigation.navigate("After Trip", { tripId: tripID })
         }
 
     }
@@ -110,7 +100,7 @@ function StartActivity({ navigation }) {
         console.log('starting a new trip');
         var json = await startActivity(0, 0, 0)
         console.log('started a trip with id ', json['id']);
-        currentJson = await current()
+        //currentJson = await current()
         //after current activity id is fetched, update page
         setTripID(json["id"])
     }

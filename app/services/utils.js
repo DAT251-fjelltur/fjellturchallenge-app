@@ -34,3 +34,17 @@ export function deleteToken() {
         }
     })
 }
+
+
+/**
+     * convert seconds to h and min
+     * TODO: flytt til utils eller noe
+     * TODO: bug: kan vise mer enn 60 på minutter
+     */
+ export function convertSeconds(s) {
+    var h = Math.floor(s / 3600);
+    var s = s % 36000;
+    var min = Math.floor(s / 60);
+    var s = s % 60;
+    return h + "h, " + min + "min and " + s + "s";
+}
