@@ -70,6 +70,7 @@ function StartActivity({ navigation }) {
             //update the map markers
             current().then(json => {
                 console.log('updates markers');
+                console.log(json);
                 locationsinfo = json['locations'];
                 longlat = []
                 locationsinfo.forEach(info => {
@@ -84,7 +85,7 @@ function StartActivity({ navigation }) {
 
         }
     }
-    
+
 
     /**
      * end a ongoing trip and move to post trip view
@@ -99,6 +100,7 @@ function StartActivity({ navigation }) {
             setTripID(null);
             setDuration(0);
             setDistance(0);
+            setMarkers([]);
             navigation.navigate("After Trip", { tripId: tripID })
         }
 
@@ -135,12 +137,19 @@ function StartActivity({ navigation }) {
                         }}
                     >
                         <Polyline
-                            coordinates={
-                                markers
-                            }
-                            strokeColor="#0a0"
+                            coordinates={markers}
+                            strokeColor="#0aa"
                             strokeWidth={6}
                         />
+
+                        {markers.length > 0 ?
+                            <Marker
+                                key={0}
+                                coordinate={markers[0]}
+                            />
+                            :
+                            <View/>
+                        }
 
                     </MapView>
                 </View>
