@@ -89,7 +89,7 @@ function trip({ navigation }) {
             setDuration(0);
             setDistance(0);
             setMarkers([]);
-            navigation.navigate("After Trip", { tripId: tripID })
+            navigation.navigate("After Trip", { tripId: tripID, markers:markers })
         }
 
     }
