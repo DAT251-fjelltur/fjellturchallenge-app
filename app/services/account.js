@@ -110,13 +110,14 @@ export function getLeaderboard({ setLoading, setLeaderboard, tok }) {
 
     setLoading(true)
 
-    fetch(SERVER_URL + "/api/v1/accounts/list?sort=score&size=60", requestOptions)
+    fetch(SERVER_URL + "/api/v1/accounts/list?sort=score,desc&size=60", requestOptions)
         .then(res => {
             if (res.status >= 300)
                 throw new Error('HTTP response status not code 200 as expected.');
             return res.json()
         })
         .then(res => {
+            //TODO: remove disabled users
             setLeaderboard(res['content'])
             setLoading(false)
         })

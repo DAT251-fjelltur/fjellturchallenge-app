@@ -14,8 +14,6 @@ import { ActiveMap } from '../components/ActiveMap';
 import { getDistance, getDuration } from '../services/trip';
 import { convertSeconds } from '../services/utils';
 
-
-
 function AfterTrip({ route, navigation }) {
     //get trip id from previous page
     const { tripId, markers } = route.params;
