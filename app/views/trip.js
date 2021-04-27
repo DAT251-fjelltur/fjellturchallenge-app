@@ -95,7 +95,7 @@ function StartActivity({ navigation }) {
             console.error('No trip to end!');
         } else {
             console.log('Ending activity ' + tripID.substring(0, 6));
-            endActivity(tripID, 0, 0, 0);
+            endActivity(setTripID);
             //TODO: handle potential error in ending activity
             setTripID(null);
             setDuration(0);
@@ -172,7 +172,7 @@ function StartActivity({ navigation }) {
                     <Text>LOADING</Text>
                 }
                 <Text>Duration: {convertSeconds(duration)}</Text>
-                <Text>Distance: {distance}</Text>
+                <Text>Distance: {distance/1000} km</Text>
             </View>
         );
     }

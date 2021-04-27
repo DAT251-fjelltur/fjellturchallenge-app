@@ -33,9 +33,9 @@ function AfterTrip({ route, navigation }) {
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Trip is finished, id {tripId}</Text>
+            <Text>Trip is finished</Text>
             <Text>Duration: {convertSeconds(duration)}</Text>
-            <Text>Distance: {distance}</Text>
+            <Text>Distance: {distance/1000} km</Text>
             <TouchableOpacity style={button.primaryButton} onPress={() => {
                 navigation.pop()
                 navigation.navigate('Home Screen')
