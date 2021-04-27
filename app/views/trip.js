@@ -8,7 +8,7 @@ import {
     Button,
     TouchableOpacity
 } from 'react-native';
-import { startTrip, endActivity } from '../services/trip';
+import { startTrip, endTrip } from '../services/trip';
 import { current, updateLocation, getDistance, getDuration } from '../services/trip';
 import MapView, { Polyline, Marker, Polygon } from 'react-native-maps';
 import { button } from '../assets/styles'
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     },
 });
 
-function StartActivity({ navigation }) {
+function trip({ navigation }) {
 
     const [tripID, setTripID] = useState(null);
     const [duration, setDuration] = useState("");
@@ -94,9 +94,9 @@ function StartActivity({ navigation }) {
         if (!tripID) {
             console.error('No trip to end!');
         } else {
-            console.log('Ending activity ' + tripID.substring(0, 6));
-            endActivity(setTripID);
-            //TODO: handle potential error in ending activity
+            console.log('Ending trip ' + tripID.substring(0, 6));
+            endTrip();
+            //TODO: handle potential error in ending trip
             setTripID(null);
             setDuration(0);
             setDistance(0);
@@ -110,7 +110,7 @@ function StartActivity({ navigation }) {
      */
     async function start() {
         if (tripID) {
-            console.error('An activity is already in progress, cant start trip');
+            console.error('A trip is already in progress, cant start trip');
             return;
         }
         console.log('starting a new trip');
@@ -123,7 +123,7 @@ function StartActivity({ navigation }) {
     }
 
     if (tripID) {
-        //if activity has started, show 'end trip' and trip info
+        //if trip has started, show 'end trip' and trip info
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <View style={styles.container}>
@@ -177,10 +177,10 @@ function StartActivity({ navigation }) {
         );
     }
     else {
-        //if activity has not started, show 'start activity' page
+        //if trip has not started, show 'start trip' page
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Here you can start your activity</Text>
+                <Text>Here you can start your trip</Text>
                 <TouchableOpacity style={button.primaryButton} onPress={() => start()} >
                     <Text >Start trip</Text>
                 </TouchableOpacity>
@@ -189,4 +189,4 @@ function StartActivity({ navigation }) {
     }
 };
 
-export default StartActivity
+export default trip

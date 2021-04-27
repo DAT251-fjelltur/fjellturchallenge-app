@@ -78,35 +78,40 @@ export function current() {
 /**
  * end activity
  */
-export function endActivity(setTripID) {
+export async function endTrip() {
+  let myHeaders = new Headers();
+  let token = await getToken();
   return Geolocation.getCurrentPosition(info => {
+    //after token is read from storage, send request
+    myHeaders.append("Authorization", "Bearer " + token);
+    myHeaders.append("Content-Type", "application/json");
+
     var lat_1 = info.coords.latitude;
     var long_1 = info.coords.longitude;
-    let myHeaders = new Headers();
-    return getToken().then((token) => {
-      //after token is read from storage, send request
-      myHeaders.append("Authorization", "Bearer " + token);
-      myHeaders.append("Content-Type", "application/json");
+    
+    let raw = JSON.stringify({
+      "latitude": lat_1,
+      "longitude": long_1,
+      "accuracy": 100
+    });
 
-      let raw = JSON.stringify({
-        "latitude": lat_1,
-        "longitude": long_1,
-        "accuracy": 100
-      });
+    let requestOptions = {
+      method: 'PUT',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
 
-      let requestOptions = {
-        method: 'PUT',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-      };
-
-      fetch(SERVER_URL + "/api/v1/trip/stop", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log("activity.endActivity result: " + result))
-        .catch(error => console.log('error sending en activity request', error));
-    })
-  })
+    fetch(SERVER_URL + "/api/v1/trip/stop", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log("activity.endActivity result: " + result))
+      .catch(error => console.log('error sending en activity request', error));
+    
+  }, err => {
+    console.log(err)
+    alert('fetching the position failed')
+  }, { enableHighAccuracy: true, timeout: 20000, maximumAge: 0 });
+    
 }
 
 
