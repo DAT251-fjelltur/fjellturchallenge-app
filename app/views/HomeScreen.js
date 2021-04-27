@@ -15,37 +15,37 @@ import { button } from '../assets/styles'
 
 function HomeScreen({ navigation }) {
     const { state, signout } = useContext(AuthContext);
-    const [activityID, setActivityID] = useState("");
+    const [tripID, setTripID] = useState("");
 
 
     useEffect(() => {
         current().then(json => {
             //after user info is fetched, update page
-            setActivityID(json["tripId"]);
+            setTripID(json["tripId"]);
         })
     }, [])
 
 
     /**
-     * go to ongoing activity or start a new activity 
+     * go to ongoing trip or start a new trip 
      */
-    function startActivity() {
+    function startTrip() {
         navigation.navigate('Trip')
         return;
-        if (activityID !== null) {
-            //console.log('An activity is already in progress');
-            navigation.navigate("During Activity");
-        } else {
-            //console.log('moving to start activity');
-            navigation.navigate("Start Activity");
-        }
+        // if (tripID !== null) {
+        //     //console.log('An trip is already in progress');
+        //     navigation.navigate("Trip");
+        // } else {
+        //     //console.log('moving to start trip');
+        //     navigation.navigate("Trip");
+        // }
     }
 
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text>logged in as {state.userName}</Text>
-            <TouchableOpacity style={button.secondaryButton} onPress={() => startActivity()} >
+            <TouchableOpacity style={button.secondaryButton} onPress={() => startTrip()} >
                 <Text >Start new or continue trip</Text>
             </TouchableOpacity>
             <TouchableOpacity style={button.primaryButton} onPress={() => signout()} >
