@@ -13,19 +13,7 @@ import { current, updateLocation, getDistance, getDuration } from '../services/t
 import MapView, { Polyline, Marker, Polygon } from 'react-native-maps';
 import { button } from '../assets/styles'
 import { convertSeconds } from '../services/utils';
-
-const styles = StyleSheet.create({
-    container: {
-        ...StyleSheet.absoluteFillObject,
-        height: 400,
-        width: 400,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-    },
-    map: {
-        ...StyleSheet.absoluteFillObject,
-    },
-});
+import {ActiveMap, map} from '../components/ActiveMap';
 
 function trip({ navigation }) {
 
@@ -126,43 +114,9 @@ function trip({ navigation }) {
         //if trip has started, show 'end trip' and trip info
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <View style={styles.container}>
-                    <MapView
-                        style={styles.map}
-                        initialRegion={{
-                            //TODO sett region automatisk
-                            latitude: 60.3913,
-                            longitude: 5.3221,
-                            latitudeDelta: 0.0922,
-                            longitudeDelta: 0.0421,
-                        }}
-                    >
-                        <Polyline
-                            coordinates={markers}
-                            strokeColor="#0aa"
-                            strokeWidth={6}
-                        />
-
-                        {markers.length > 0 ?
-                            <Marker
-                                key={1}
-                                coordinate={markers[markers.length - 1]}
-                            />
-                            :
-                            <View />
-                        }{markers.length > 1 ?
-                            <Marker
-                                key={0}
-                                coordinate={markers[0]}
-                            />
-                            :
-                            <View />
-                        }
-
-                    </MapView>
-                </View>
-
-
+                <ActiveMap
+                    markers={markers}
+                />
 
                 <Text>Trip is in progess</Text>
                 { tripID !== null ?
