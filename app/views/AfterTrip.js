@@ -32,7 +32,7 @@ function AfterTrip({ route, navigation }) {
 
     return (
 
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', paddingBottom: 100 }}>
             <ActiveMap
                 markers={markers}
             />

@@ -113,7 +113,7 @@ function trip({ navigation }) {
     if (tripID) {
         //if trip has started, show 'end trip' and trip info
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', paddingBottom: 100 }}>
                 <ActiveMap
                     markers={markers}
                 />
