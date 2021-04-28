@@ -10,7 +10,7 @@ import { useState, useEffect, useContext } from "react/cjs/react.development";
 import { me } from '../services/account';
 import { current } from '../services/trip';
 import { Context as AuthContext } from '../context/AuthContext'
-import { button } from '../assets/styles'
+import { button, general } from '../assets/styles'
 
 
 function HomeScreen({ navigation }) {
@@ -43,7 +43,7 @@ function HomeScreen({ navigation }) {
 
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={general.center}>
             <Text>logged in as {state.userName}</Text>
             <TouchableOpacity style={button.secondaryButton} onPress={() => startTrip()} >
                 <Text >Start new or continue trip</Text>

@@ -45,3 +45,44 @@ export const button = StyleSheet.create({
     }
 })
 
+
+export const scoreboard = StyleSheet.create({
+    cardContainer: {
+        flexDirection: 'row', 
+        display: 'flex', 
+        justifyContent: 'center',
+    },
+    numberContainer: {
+        flex: 0.5, 
+        alignItems: 'center', 
+        justifyContent: 'center',
+    },
+    boldText: {
+        fontWeight: 'bold'
+    },
+    avatarContainer: {
+        flex: 1, 
+        alignItems: 'center',
+    },
+    usernameContainer: {
+        flex: 5, 
+        justifyContent: 'center'
+    },
+    scoreContainer: {
+        flex: 1, 
+        alignItems: 'flex-end', 
+        justifyContent: 'center',
+    },
+    headerText: {
+        fontWeight: 'bold', 
+        fontSize: 18
+    }
+})
+
+export const general = StyleSheet.create({
+    center: {
+        flex: 1, 
+        alignItems: 'center', 
+        justifyContent: 'center'
+    }
+})

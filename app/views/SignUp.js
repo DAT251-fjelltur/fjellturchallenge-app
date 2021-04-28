@@ -11,7 +11,7 @@ import {
 import { useEffect } from 'react/cjs/react.development';
 import { Context as AuthContext } from '../context/AuthContext'
 import Loading from '../components/Loading'
-import { button } from '../assets/styles'
+import { button, general } from '../assets/styles'
 
 
 function SignUp({ navigation }) {
@@ -26,7 +26,7 @@ function SignUp({ navigation }) {
             {loading ?
                 <Loading></Loading>
                 :
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <View style={general.center}>
                     <Text>Username</Text>
                     <TextInput placeholder="Username" onChangeText={user => setUsername(user)}></TextInput>
                     <Text>Password</Text>

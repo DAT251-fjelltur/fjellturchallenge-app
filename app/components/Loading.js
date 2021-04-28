@@ -1,14 +1,15 @@
-
 import React from 'react';
 import {
     View,
     Text,
 } from 'react-native';
 
+import { general } from '../assets/styles'
+
 
 function Loading() {
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={general.center}>
             <Text>LOADING...</Text>
         </View>
     )

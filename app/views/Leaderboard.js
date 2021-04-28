@@ -11,6 +11,8 @@ import { getLeaderboard } from '../services/account';
 import { Context as AuthContext } from '../context/AuthContext'
 import { Card, Avatar } from 'react-native-elements';
 import { ScrollView } from 'react-native';
+import { scoreboard } from '../assets/styles'
+import Loading from '../components/Loading'
 
 function Leaderboard() {
     const [isLoading, setLoading] = useState(false)
@@ -27,20 +29,20 @@ function Leaderboard() {
     function sortedLeaderboard(user, i) {
         return (
             <Card key={i} containerStyle={{ margin: 0 }}>
-                <View style={{ flexDirection: 'row', display: 'flex', justifyContent: 'center' }}>
-                    <View style={{ flex: 0.5, alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ fontWeight: 'bold' }}>{i + 1}.</Text>
+                <View style={scoreboard.cardContainer}>
+                    <View style={scoreboard.numberContainer}>
+                        <Text style={scoreboard.boldText}>{i + 1}.</Text>
                     </View>
-                    <View style={{ flex: 1, alignItems: 'center' }}>
+                    <View style={scoreboard.avatarContainer}>
                         <Avatar rounded source={{
                             uri:
                                 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
                         }} />
                     </View>
-                    <View style={{ flex: 5, justifyContent: 'center' }} >
+                    <View style={scoreboard.usernameContainer} >
                         <Text>{user['username']}</Text>
                     </View>
-                    <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
+                    <View style={scoreboard.scoreContainer}>
                         <Text>{user['score']}</Text>
                     </View>
                 </View>
@@ -53,18 +55,18 @@ function Leaderboard() {
         return (
             <Card containerStyle={{ margin: 0 }}>
 
-                <View style={{ flexDirection: 'row', display: 'flex', justifyContent: 'center' }}>
-                    <View style={{ flex: 0.5, alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Nr.</Text>
+                <View style={scoreboard.cardContainer}>
+                    <View style={scoreboard.numberContainer}>
+                        <Text style={scoreboard.headerText}>Nr.</Text>
                     </View>
-                    <View style={{ flex: 1, alignItems: 'center' }}>
+                    <View style={scoreboard.avatarContainer}>
 
                     </View>
-                    <View style={{ flex: 5, justifyContent: 'center' }}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Name</Text>
+                    <View style={scoreboard.usernameContainer}>
+                        <Text style={scoreboard.headerText}>Name</Text>
                     </View>
-                    <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Score</Text>
+                    <View style={scoreboard.scoreContainer}>
+                        <Text style={scoreboard.headerText}>Score</Text>
                     </View>
                 </View>
             </Card>
@@ -96,9 +98,7 @@ function Leaderboard() {
                         </ScrollView>
                     </View>
                     :
-                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                        <Text>LOADING...</Text>
-                    </View>
+                    <Loading></Loading>
             }
 
 

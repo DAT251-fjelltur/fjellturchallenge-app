@@ -14,7 +14,7 @@ import { get } from 'react-native/Libraries/Utilities/PixelRatio';
 import { getToken } from '../services/utils';
 import { Context as AuthContext } from '../context/AuthContext'
 import Loading from '../components/Loading'
-import { button } from '../assets/styles'
+import { button, general } from '../assets/styles'
 
 function SignIn({ navigation }) {
     const [userName, setUsername] = useState("");
@@ -34,7 +34,7 @@ function SignIn({ navigation }) {
             {loading ?
                 <Loading></Loading>
                 :
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <View style={general.center}>
                     <Text>Username</Text>
                     <TextInput placeholder="Username" onChangeText={setUsername}></TextInput>
                     <Text>Password</Text>
