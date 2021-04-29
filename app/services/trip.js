@@ -229,7 +229,7 @@ export function getScore(tripID) {
       .then(response => response.text())
       .then(result => {
         var json = JSON.parse(result);
-        console.log(json);
+        // console.log(json);
         return json['score'];
       })
       .catch(error => console.log('error', error));

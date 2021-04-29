@@ -26,6 +26,7 @@ import trip from './app/views/trip'
 import SignIn from "./app/views/SignIn"
 import HomeScreen from "./app/views/HomeScreen"
 import AfterTrip from "./app/views/AfterTrip"
+import Rules from "./app/views/Rules"
 import { Provider as AuthProvider } from './app/context/AuthContext.js';
 import { Context as AuthContext } from './app/context/AuthContext';
 import Loading from './app/components/Loading'
@@ -76,6 +77,7 @@ function App() {
             <Drawer.Screen name="Home Screen" component={HomeScreen} />
             <Drawer.Screen name="Trip" component={TripStack} />
             <Drawer.Screen name="Leaderboard" component={Leaderboard} />
+            <Drawer.Screen name="Rules" component={Rules} />
 
           </>
         }
