@@ -86,3 +86,30 @@ export const general = StyleSheet.create({
         justifyContent: 'center'
     }
 })
+
+export const profile = StyleSheet.create({
+    container: {
+        flex: 1, 
+    },
+    user: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    score: {
+        flex: 5,
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+
+    },
+    userText: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        margin: 20
+    },
+    scoreText: {
+        fontSize: 18,
+    }
+})
