@@ -9,7 +9,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { startTrip, endTrip } from '../services/trip';
-import { current, updateLocation, getDistance, getDuration } from '../services/trip';
+import { current, updateLocation, getDistance, getDuration, getScore } from '../services/trip';
 import MapView, { Polyline, Marker, Polygon } from 'react-native-maps';
 import { button } from '../assets/styles'
 import { convertSeconds } from '../services/utils';
@@ -19,6 +19,7 @@ function trip({ navigation }) {
 
     const [tripID, setTripID] = useState(null);
     const [duration, setDuration] = useState("");
+    const [score, setScore] = useState(0);
     const [distance, setDistance] = useState("");
     const [markers, setMarkers] = useState([]);
 
@@ -52,6 +53,9 @@ function trip({ navigation }) {
             getDistance(tripID).then(value => {
                 setDistance(value);
             });
+            getScore(tripID).then(value => {
+                setScore(value);
+            });
             getDuration(tripID).then(value => {
                 setDuration(value);
             });
@@ -66,7 +70,7 @@ function trip({ navigation }) {
                     longlat.push(pos)
                 });
                 // longlat.shift(); to remove first buggy pos
-                console.log('recieved coors:', longlat);
+                // console.log('recieved coors:', longlat);
                 setMarkers(longlat);
                 // setMarkers(markers.concat(longlat));
             })
@@ -126,6 +130,7 @@ function trip({ navigation }) {
                     <Text>LOADING</Text>
                 }
                 <Text>Duration: {convertSeconds(duration)}</Text>
+                <Text>Score: {score}</Text>
                 <Text>Distance: {distance/1000} km</Text>
             </View>
         );

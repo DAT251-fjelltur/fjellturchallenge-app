@@ -207,6 +207,37 @@ export function getDistance(tripID) {
 
 }
 /**
+ * get score of a trip
+  * @returns 0 if tripID is null
+ */
+export function getScore(tripID) {
+  if (tripID == null) {
+    return "0";
+  }
+  let myHeaders = new Headers();
+  return getToken().then((token) => {
+    //after token is read from storage, send request
+    myHeaders.append("Authorization", "Bearer " + token);
+    myHeaders.append("Content-Type", "application/json");
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow',
+      headers: myHeaders
+    };
+
+    var result = fetch(SERVER_URL + "/api/v1/trip/" + tripID + "/score", requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        var json = JSON.parse(result);
+        console.log(json);
+        return json['score'];
+      })
+      .catch(error => console.log('error', error));
+    return result;
+  })
+
+}
+/**
  * get duration of a trip
   * @returns 0 if tripID is null
  */

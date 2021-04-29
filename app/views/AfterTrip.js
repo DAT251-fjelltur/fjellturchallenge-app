@@ -11,7 +11,7 @@ import {
 import { Marker } from 'react-native-maps';
 import { button } from '../assets/styles'
 import { ActiveMap } from '../components/ActiveMap';
-import { getDistance, getDuration } from '../services/trip';
+import { getDistance, getDuration, getScore } from '../services/trip';
 import { convertSeconds } from '../services/utils';
 
 function AfterTrip({ route, navigation }) {
@@ -20,6 +20,7 @@ function AfterTrip({ route, navigation }) {
 
     const [duration, setDuration] = useState("");
     const [distance, setDistance] = useState("");
+    const [score, setScore] = useState(0);
 
     useEffect(() => {
         getDistance(tripId).then(value => {
@@ -27,6 +28,9 @@ function AfterTrip({ route, navigation }) {
         });
         getDuration(tripId).then(value => {
             setDuration(value);
+        });
+        getScore(tripId).then(value => {
+            setScore(value);
         });
     });
 
@@ -39,6 +43,7 @@ function AfterTrip({ route, navigation }) {
             <Text>Trip is finished</Text>
             <Text>Duration: {convertSeconds(duration)}</Text>
             <Text>Distance: {distance / 1000} km</Text>
+            <Text>Score: {score} points</Text>
             <TouchableOpacity style={button.primaryButton} onPress={() => {
                 navigation.pop()
                 navigation.navigate('Home Screen')
