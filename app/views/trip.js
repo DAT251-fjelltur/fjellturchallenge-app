@@ -62,7 +62,6 @@ function trip({ navigation }) {
             //update the map markers
             current().then(json => {
                 console.log('updates markers');
-                console.log(json);
                 locationsinfo = json['locations'];
                 longlat = []
                 locationsinfo.forEach(info => {
