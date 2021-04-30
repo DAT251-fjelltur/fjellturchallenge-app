@@ -20,7 +20,6 @@ function Rules() {
     return (
         ruleList.length > 0 ?
             <View>
-                <Text>All rules:</Text>
                 {ruleList.map((rule, i) => {
                     return (
                         <Card
@@ -30,18 +29,25 @@ function Rules() {
                                 rule['ruleType'] == 'TIME RULE' &&
                                 <Text>distance rule:</Text>
                             }
-                            
-                            <Text>name {rule['name']}</Text>
-                            <Text>points {rule['basicPoints']}</Text>
+
+                            {
+                                //check rule type and do different stuff
+                                rule['ruleType'] == 'MOUNTAIN RULE' &&
+                                <Text>Walk to:</Text>
+                            }
+                            <>
+                                <Text style={{ fontSize:20}}> {rule['name']}</Text>
+                            <Text style={{ fontWeight: "bold" }}> Points awarded: {rule['basicPoints']}</Text>
+                            </>
                         </Card>
                     )
-                })}
+})}
 
-            </View>
+            </View >
             :
-            <View>
-                <Text>loading rules</Text>
-            </View>
+<Card>
+    <Text>Loading rules</Text>
+</Card>
     )
 }
 export default Rules;
