@@ -31,6 +31,7 @@ import { Provider as AuthProvider } from './app/context/AuthContext.js';
 import { Context as AuthContext } from './app/context/AuthContext';
 import Loading from './app/components/Loading'
 import Leaderboard from './app/views/Leaderboard';
+import Profile from './app/views/Profile'
 //import { color } from 'react-native-reanimated';
 
 const Drawer = createDrawerNavigator()
@@ -78,6 +79,7 @@ function App() {
             <Drawer.Screen name="Trip" component={TripStack} />
             <Drawer.Screen name="Leaderboard" component={Leaderboard} />
             <Drawer.Screen name="Rules" component={Rules} />
+            <Drawer.Screen name="Profile" component={Profile} />
 
           </>
         }
