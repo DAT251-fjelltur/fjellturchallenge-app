@@ -25,13 +25,14 @@ function Rules() {
                     return (
                         <Card
                             key={i}>
-                            <Text>name {rule['name']}</Text>
-                            <Text>points {rule['basicPoints']}</Text>
                             {
                                 //check rule type and do different stuff
-                                rule['type'] == 'distance' &&
-                                        <Text>'distance'</Text>
+                                rule['ruleType'] == 'TIME RULE' &&
+                                <Text>distance rule:</Text>
                             }
+                            
+                            <Text>name {rule['name']}</Text>
+                            <Text>points {rule['basicPoints']}</Text>
                         </Card>
                     )
                 })}
