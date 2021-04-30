@@ -1,3 +1,4 @@
+import { Card, Avatar } from 'react-native-elements';
 import React, { useContext, useEffect, useState } from 'react';
 import {
     View,
@@ -8,7 +9,6 @@ import {
 import { allRules } from '../services/rules'
 
 function Rules() {
-    // return (<Text>abc</Text>);
     const [ruleList, setRuleList] = useState([]);
     useEffect(() => {
         allRules().then(val => {
@@ -22,11 +22,18 @@ function Rules() {
             <View>
                 <Text>All rules:</Text>
                 {ruleList.map((rule, i) => {
-                    console.log(rule['name']);
-                    <>
-                        <Text>name {rule['name']}</Text>
-                        <Text>points {rule['basicPoints']}</Text>
-                    </>
+                    return (
+                        <Card
+                            key={i}>
+                            <Text>name {rule['name']}</Text>
+                            <Text>points {rule['basicPoints']}</Text>
+                            {
+                                //check rule type and do different stuff
+                                rule['type'] == 'distance' &&
+                                        <Text>'distance'</Text>
+                            }
+                        </Card>
+                    )
                 })}
 
             </View>
