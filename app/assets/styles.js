@@ -4,6 +4,16 @@ export const dimensions = {
     fullHeight: Dimensions.get('window').height,
     fullWidth: Dimensions.get('window').width
 }
+export const tekst = StyleSheet.create({
+    textbox:{
+        backgroundColor: '#ffffff',
+        paddingTop: 4,
+        paddingRight: 4,
+        paddingBottom:4,
+        paddingLeft: 4,
+        margin: 4,
+    }
+});
 
 export const button = StyleSheet.create({
     primaryButton: {

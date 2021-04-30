@@ -11,7 +11,7 @@ import {
 import { startTrip, endTrip } from '../services/trip';
 import { current, updateLocation, getDistance, getDuration, getScore } from '../services/trip';
 import MapView, { Polyline, Marker, Polygon } from 'react-native-maps';
-import { button } from '../assets/styles'
+import { tekst,button } from '../assets/styles'
 import { convertSeconds } from '../services/utils';
 import {ActiveMap, map} from '../components/ActiveMap';
 
@@ -121,16 +121,15 @@ function trip({ navigation }) {
                     markers={markers}
                 />
 
-                <Text>Trip is in progess</Text>
                 { tripID !== null ?
                     <TouchableOpacity style={button.primaryButton} onPress={() => end()} >
                         <Text >End trip</Text>
                     </TouchableOpacity> :
                     <Text>LOADING</Text>
                 }
-                <Text>Duration: {convertSeconds(duration)}</Text>
-                <Text>Score: {score}</Text>
-                <Text>Distance: {distance/1000} km</Text>
+                <Text style={tekst.textbox}>Duration: {convertSeconds(duration)}</Text>
+                <Text style={tekst.textbox}>Score: {score}</Text>
+                <Text style={tekst.textbox}>Distance: {distance/1000} km</Text>
             </View>
         );
     }
